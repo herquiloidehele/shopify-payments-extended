@@ -1,0 +1,70 @@
+{
+  "generics": {
+    "appName": "Mundlerere Backoffice"
+  },
+  "pages": {
+    "login": {
+      "wellcomeMessage": "Seja bem-vindo ao sistema de pagamentos customizados para o Shopify.",
+      "title": "Entrar no sitema",
+      "subtitle": "Introduza o seu domínio e senha para continuar",
+      "email": "Email",
+      "domain": "Domínio da loja",
+      "password": "Senha",
+      "forgotPassword": "Esqueceu a senha",
+      "login": "Entrar"
+    },
+    "home": {
+      "header": {
+        "search": "Pesquisar",
+        "profile": "Perfil",
+        "logout": "Sair",
+        "settings": "Definições"
+      },
+      "menu": {
+        "home": "Início",
+        "payments": "Pagamentos",
+        "mpesa-config": "Mpesa",
+        "bim-config": "BIM",
+        "ponto-24-config": "Ponto 24"
+      },
+      "wellcomeCard": {
+        "title": "Bem-vindo ao Backoffice",
+        "subtitle": "Sistema de gestão e monitoria do jogo MUNDLERERE"
+      },
+      "statisticCard": {
+        "users": {
+          "title": "Utilizadores",
+          "subtitle": "Total de utilizadores registados"
+        },
+        "games": {
+          "title": "Jogos",
+          "subtitle": "Total de jogos registados"
+        }
+      },
+      "timeLineEvents": {
+        "title": "Timeline de eventos",
+        "newChallenge": "Novo jogo criado",
+        "challengeAccepted": "Jogo aceite",
+        "buyCredits": "Compra de créditos",
+        "withdrawMoney": "Levantamento de fundos"
+      },
+      "cardBestPlayers": {
+        "title": "Melhores jogadores",
+        "table": {
+          "name": "Nome",
+          "balance": "Saldo restante",
+          "victoriesAndDefeats": "Vitórias e derrotas"
+        }
+      },
+      "cardLastPlays": {
+        "title": "Últimos jogos",
+        "table":  {
+          "createdBy": "Criado Por",
+          "acceptedBy": "Aceite Por",
+          "challengeValue": "Valor do jogo",
+          "winner": "Vencedor"
+        }
+      }
+    }
+  }
+}
