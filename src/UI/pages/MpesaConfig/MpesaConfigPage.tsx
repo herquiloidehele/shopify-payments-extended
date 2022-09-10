@@ -87,7 +87,7 @@ const MpesaConfigPage = () => {
 
   return (
     <Grid container columnSpacing={5} rowSpacing={4}>
-      <Grid xs={12} className="buttons-control">
+      <Grid item xs={12} className="buttons-control">
         <ButtonsControl>
           <Button disabled={saveLoading || !formTouched} className="save-button" variant="contained" color="primary" disableElevation onClick={() => onSaveChanges()}>
             {t("generics.buttons.save")}

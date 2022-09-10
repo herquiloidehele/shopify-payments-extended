@@ -3,6 +3,7 @@ import { Avatar, Badge, Button, ListItemIcon, Menu, MenuItem } from "@mui/materi
 import React from "react";
 import { useTranslation } from "react-i18next";
 
+import AuthService from "../../../Api/Services/AuthService";
 import { HeaderWrapper, AvatarNotificationWrapper, InputSearch } from "../../pages/Home/Style";
 
 interface IHeaderProps {
@@ -59,7 +60,7 @@ const Header: React.FC<IHeaderProps> = ({ onClickMenu }) => {
               </ListItemIcon>
               {t("pages.home.header.settings")}
             </MenuItem>
-            <MenuItem>
+            <MenuItem onClick={() => AuthService.logout()}>
               <ListItemIcon>
                 <Logout fontSize="small" />
               </ListItemIcon>
