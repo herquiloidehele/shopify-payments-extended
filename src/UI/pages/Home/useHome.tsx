@@ -12,6 +12,11 @@ const useHome = () => {
   const [loading, setLoading] = useState(true);
   const [payments, setPayments] = useState<any[]>([]);
   const [error, setError] = useState(false);
+  const [paymentReport, setPaymentsReport] = useState<any>({
+    payments: [],
+    paymentsCount: "0",
+    paymentsTotal: `0 MZN`,
+  });
 
   const usersStatisticsData: ApexOptions["series"] = [
     {
@@ -66,11 +71,28 @@ const useHome = () => {
       });
   };
 
+  const fetchPaymentsReport = () => {
+    setLoading(true);
+    setError(false);
+
+    AppService.getShopReport("sugarfitshop.myshopify.com")
+      .then((paymentReport: any) => {
+        setPaymentsReport(paymentReport);
+        // setPayments(createPaymentData(paymentReport.payments));
+      })
+      .catch((error) => {
+        setError(true);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
   useEffect(() => {
     fetchPayments();
   }, []);
 
-  return { usersStatisticsData, payments, paysStatisticsData };
+  return { usersStatisticsData, payments, paysStatisticsData, paymentReport, fetchPaymentsReport };
 };
 
 export default useHome;

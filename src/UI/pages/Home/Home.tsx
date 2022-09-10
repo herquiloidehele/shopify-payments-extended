@@ -1,5 +1,5 @@
-import { Badge, Grid } from "@mui/material";
-import React, { useContext } from "react";
+import { Grid } from "@mui/material";
+import React, { useContext, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { ThemeContext } from "styled-components";
 
@@ -13,8 +13,12 @@ import useHome from "./useHome";
 
 const Home: React.FC = () => {
   const themeContext = useContext(ThemeContext);
-  const { usersStatisticsData, payments, paysStatisticsData } = useHome();
+  const { usersStatisticsData, payments, paysStatisticsData, fetchPaymentsReport, paymentReport } = useHome();
   const { t } = useTranslation();
+
+  useEffect(() => {
+    fetchPaymentsReport();
+  }, []);
 
   return (
     <Grid container>
@@ -24,12 +28,18 @@ const Home: React.FC = () => {
         </Grid>
 
         <Grid item xs={3}>
-          <CardStatistics value="150" title={t("pages.home.statisticCard.no-payments.subtitle")} icon={<UserRoundIcon />} chartData={usersStatisticsData} colors={[themeContext.colors.primary]} />
+          <CardStatistics
+            value={paymentReport.paymentsCount}
+            title={t("pages.home.statisticCard.no-payments.subtitle")}
+            icon={<UserRoundIcon />}
+            chartData={usersStatisticsData}
+            colors={[themeContext.colors.primary]}
+          />
         </Grid>
 
         <Grid item xs={3}>
           <CardStatistics
-            value="8000 MZN"
+            value={paymentReport.paymentsTotal}
             title={t("pages.home.statisticCard.total-payments.subtitle")}
             icon={<GameRoundIcon />}
             chartData={paysStatisticsData}

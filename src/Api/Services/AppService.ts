@@ -23,6 +23,28 @@ export default abstract class AppService {
     });
   }
 
+  public static getShopReport(shop: string) {
+    console.log("Start request Shop Report: ", shop);
+
+    return new Promise(async (resolve, reject) => {
+      try {
+        const axiosResponse = await HttpClient.get(`payments-report/shop/${shop}`);
+
+        if (axiosResponse.status === 200) {
+          const convertedPayments = this.convertShopReport(axiosResponse.data);
+          console.log("Payment Report Data loaded successfully", convertedPayments);
+          resolve(convertedPayments);
+          return;
+        }
+
+        console.error("Error Fetching Payments Report", axiosResponse);
+      } catch (error) {
+        console.error("Error Fetching Payments Report", error);
+        reject(error);
+      }
+    });
+  }
+
   public static async savePaymentSettings(data: any) {
     console.log("Start saving payment settings", data);
     const axiosResponse: any = await HttpClient.post("settings", data);
@@ -62,6 +84,14 @@ export default abstract class AppService {
       });
     }
     return [];
+  }
+
+  private static convertShopReport(data: any) {
+    return {
+      payments: this.convertPaymentData(data.payments),
+      paymentsCount: `${data.paymentsCount} unit.`,
+      paymentsTotal: `${data.paymentsTotal} MZN`,
+    };
   }
 
   private static convertPaymentSettings(data: any, accessTooken: any) {
