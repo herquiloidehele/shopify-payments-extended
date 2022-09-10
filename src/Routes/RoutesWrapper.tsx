@@ -14,6 +14,7 @@ export default function RoutesWrapper() {
   return (
     <Routes>
       <Route path={APP_ROUTES.PUBLIC.ROOT} element={<App />}>
+        <Route index element={<Navigate to={APP_ROUTES.PUBLIC.LOGIN} />} />
         <Route element={<PublicRoute />}>
           <Route path={APP_ROUTES.PUBLIC.LOGIN} element={<Login />} />
         </Route>
