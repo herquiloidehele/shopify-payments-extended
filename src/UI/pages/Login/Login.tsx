@@ -48,8 +48,7 @@ const Login: React.FC = () => {
 
               <div className="button-container">
                 <LoadingButton className="login-button" loading={submitting} variant="contained" color="primary" disabled={submitting} disableElevation onClick={(event) => handleSubmit(event)}>
-                  {" "}
-                  {t("pages.login.login")}{" "}
+                  {t("pages.login.login")}
                 </LoadingButton>
               </div>
             </LoginForm>
