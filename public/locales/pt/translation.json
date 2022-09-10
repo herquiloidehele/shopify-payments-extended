@@ -1,6 +1,9 @@
 {
   "generics": {
-    "appName": "Mundlerere Backoffice"
+    "appName": "Shopify Payments extended",
+    "buttons": {
+      "save": "Salvar"
+    }
   },
   "pages": {
     "login": {
@@ -28,7 +31,7 @@
         "ponto-24-config": "Ponto 24"
       },
       "wellcomeCard": {
-        "title": "Bem-vindo ao Backoffice",
+        "title": "Seja Bem-vindo(a)",
         "subtitle": "Sistema de controle de pagamentos customizados do SHOPIFY"
       },
       "statisticCard": {
@@ -54,6 +57,14 @@
     },
     "payments": {
       "title": "Pagamentos"
+    },
+    "mpesaConfig": {
+      "form1": {
+        "title": "Configurações Mpesa"
+      },
+      "form2": {
+        "title": "Configurações Shopify"
+      }
     }
   }
 }

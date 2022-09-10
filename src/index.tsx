@@ -2,10 +2,14 @@ import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 
+import HttpClient from "./Api/HttpClient";
 import reportWebVitals from "./reportWebVitals";
 import RoutesWrapper from "./RoutesWrapper";
 import SplashScreen from "./UI/components/SplashScreen/SplashScreen";
+
 import "./i18n";
+
+HttpClient.getInstance();
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
