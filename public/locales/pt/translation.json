@@ -41,7 +41,7 @@
         },
         "total-payments": {
           "title": "Total Pagamentos",
-          "subtitle": "Valor total arecadado"
+          "subtitle": "Valor total arrecadado"
         }
       },
       "cardPayments": {
