@@ -7,10 +7,10 @@ import TableRow from "@mui/material/TableRow";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-interface ILastPlaysTableProps {
+interface IPaymentsTableProps {
   tableRows: any[];
 }
-const LastPlaysTable: React.FC<ILastPlaysTableProps> = ({ tableRows }) => {
+const PaymentsTable: React.FC<IPaymentsTableProps> = ({ tableRows }) => {
   const { t } = useTranslation();
 
   return (
@@ -18,19 +18,21 @@ const LastPlaysTable: React.FC<ILastPlaysTableProps> = ({ tableRows }) => {
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>{t("pages.home.cardLastPlays.table.createdBy")}</TableCell>
-            <TableCell>{t("pages.home.cardLastPlays.table.acceptedBy")}</TableCell>
-            <TableCell>{t("pages.home.cardLastPlays.table.challengeValue")}</TableCell>
-            <TableCell>{t("pages.home.cardLastPlays.table.winner")}</TableCell>
+            <TableCell>{t("pages.home.cardPayments.table.order")}</TableCell>
+            <TableCell>{t("pages.home.cardPayments.table.customer")}</TableCell>
+            <TableCell>{t("pages.home.cardPayments.table.amount")}</TableCell>
+            <TableCell>{t("pages.home.cardPayments.table.date")}</TableCell>
+            <TableCell>{t("pages.home.cardPayments.table.status")}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {tableRows.map((row, index) => (
             <TableRow key={index}>
-              <TableCell>{row.createdBy}</TableCell>
-              <TableCell>{row.acceptedBy}</TableCell>
-              <TableCell>{row.value}</TableCell>
-              <TableCell>{row.winner}</TableCell>
+              <TableCell>{row.order}</TableCell>
+              <TableCell>{row.customer}</TableCell>
+              <TableCell>{row.amount}</TableCell>
+              <TableCell>{row.date}</TableCell>
+              <TableCell>{row.status}</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -39,4 +41,4 @@ const LastPlaysTable: React.FC<ILastPlaysTableProps> = ({ tableRows }) => {
   );
 };
 
-export default LastPlaysTable;
+export default PaymentsTable;

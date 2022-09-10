@@ -26,7 +26,7 @@ export const WellcomeCardWrapper = styled(CustomCard)`
   }
 
   p {
-    margin-top: ${pixel2Rem(10)};
+    margin-top: ${pixel2Rem(5)};
     font-size: ${pixel2Rem(18)};
   }
 

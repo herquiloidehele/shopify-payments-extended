@@ -6,7 +6,7 @@ import { StatisticCardWrapper } from "./Style";
 
 interface ICardStatisticsProps {
   title: string;
-  value: number;
+  value: string;
   chartData: ApexOptions["series"];
   icon: ReactElement;
   colors: string[];

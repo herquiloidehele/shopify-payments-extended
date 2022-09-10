@@ -29,40 +29,26 @@
       },
       "wellcomeCard": {
         "title": "Bem-vindo ao Backoffice",
-        "subtitle": "Sistema de gestão e monitoria do jogo MUNDLERERE"
+        "subtitle": "Sistema de controle de pagamentos customizados do SHOPIFY"
       },
       "statisticCard": {
-        "users": {
-          "title": "Utilizadores",
-          "subtitle": "Total de utilizadores registados"
+        "no-payments": {
+          "title": "No. Pagamentos",
+          "subtitle": "Quantidade de Pagamentos realizados"
         },
-        "games": {
-          "title": "Jogos",
-          "subtitle": "Total de jogos registados"
+        "total-payments": {
+          "title": "Total Pagamentos",
+          "subtitle": "Valor total arecadado"
         }
       },
-      "timeLineEvents": {
-        "title": "Timeline de eventos",
-        "newChallenge": "Novo jogo criado",
-        "challengeAccepted": "Jogo aceite",
-        "buyCredits": "Compra de créditos",
-        "withdrawMoney": "Levantamento de fundos"
-      },
-      "cardBestPlayers": {
-        "title": "Melhores jogadores",
-        "table": {
-          "name": "Nome",
-          "balance": "Saldo restante",
-          "victoriesAndDefeats": "Vitórias e derrotas"
-        }
-      },
-      "cardLastPlays": {
-        "title": "Últimos jogos",
+      "cardPayments": {
+        "title": "Últimos Pagamentos",
         "table":  {
-          "createdBy": "Criado Por",
-          "acceptedBy": "Aceite Por",
-          "challengeValue": "Valor do jogo",
-          "winner": "Vencedor"
+          "order": "Encomenda",
+          "customer": "Cliente",
+          "amount": "Valor",
+          "date": "Data",
+          "status": "Estado"
         }
       }
     }
