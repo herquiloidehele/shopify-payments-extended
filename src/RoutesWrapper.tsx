@@ -4,6 +4,7 @@ import App from "./App";
 import Dashboard from "./UI/pages/Dashboard/Dashboard";
 import Home from "./UI/pages/Home/Home";
 import Login from "./UI/pages/Login/Login";
+import PaymentsPage from "./UI/pages/Payments/PaymentsPage";
 import { APP_ROUTES } from "./Utils/constants/Routes";
 
 export default function RoutesWrapper() {
@@ -15,7 +16,7 @@ export default function RoutesWrapper() {
         <Route path={APP_ROUTES.PRIVATE.DASHBOARD} element={<Dashboard />}>
           <Route index element={<Navigate to={APP_ROUTES.PRIVATE.HOME} />} />
           <Route path={APP_ROUTES.PRIVATE.HOME} element={<Home />} />
-          <Route path={APP_ROUTES.PRIVATE.PAYMENTS} element={<h1>Pagamentos</h1>} />
+          <Route path={APP_ROUTES.PRIVATE.PAYMENTS} element={<PaymentsPage />} />
           <Route path={APP_ROUTES.PRIVATE.MPESA} element={<h1>Mpesa </h1>} />
           <Route path={APP_ROUTES.PRIVATE.BIM} element={<h1>Configurações BIM</h1>} />
           <Route path={APP_ROUTES.PRIVATE.PONTO24} element={<h1>Configurações Ponto 24</h1>} />
