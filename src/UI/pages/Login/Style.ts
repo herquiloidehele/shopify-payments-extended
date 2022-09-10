@@ -95,11 +95,15 @@ export const LoginForm = styled.div`
     }
   }
 
+  .error-section {
+    margin-top: ${pixel2Rem(15)};
+  }
+
   .button-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: ${pixel2Rem(50)};
+    margin-top: ${pixel2Rem(40)};
 
     .login-button {
       padding: ${pixel2Rem(8)} ${pixel2Rem(50)};

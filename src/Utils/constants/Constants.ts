@@ -1,7 +1,12 @@
-export enum TIMELINE_EVENTS_TYPES {
-  NEW_CHALLENGE = "NEW_CHALLENGE",
-  CHALLENGE_ACCEPTED = "CHALLENGE_ACCEPTED",
-  BUY_CREDITS = "BUY_CREDITS",
-  WITHDRAW_MONEY = "WITHDRAW_MONEY",
-  CHALLENGE_CANCELED = "CHALLENGE_CANCELED",
-}
+export const Constants = {
+  errors: {
+    generic: {
+      BAD_REQUEST: "Bad Request",
+    },
+    auth: {
+      INVALID_CREDENTIALS: "Invalid credentials",
+      UNAUTHERIZED: "Unauthorized",
+    },
+  },
+  TOKEN_KEY: "token",
+};

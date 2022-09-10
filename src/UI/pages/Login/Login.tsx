@@ -1,15 +1,16 @@
-import { Button, TextField } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
+import { Alert, TextField } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import { APP_ROUTES } from "../../../Utils/constants/Routes";
 import { ReactComponent as FullLogo } from "../../assets/img/logo-large.svg";
 import { LoginCard, LoginWrapper, LeftSide, RightSide, HeadingContainer, LoginForm } from "./Style";
+import useLogin from "./useLogin";
 
 const Login: React.FC = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  const { loginErrorMsg, setShopName, submitting, handleSubmit, setPassword } = useLogin();
 
   return (
     <LoginWrapper>
@@ -30,18 +31,26 @@ const Login: React.FC = () => {
 
             <LoginForm>
               <div>
-                <TextField className="email-input" id="domain" type="text" label={t("pages.login.domain")} variant="standard" />
+                <TextField className="email-input" id="domain" type="text" label={t("pages.login.domain")} variant="standard" onChange={(event) => setShopName(event.target.value)} />
               </div>
               <div>
-                <TextField className="password-input" id="password" type="password" label={t("pages.login.password")} variant="standard" />
+                <TextField className="password-input" id="password" type="password" label={t("pages.login.password")} variant="standard" onChange={(event) => setPassword(event.target.value)} />
               </div>
               <div className="reset-password-link">
                 <Link to="/">{t("pages.login.forgotPassword")} </Link>
               </div>
+
+              {loginErrorMsg ? (
+                <div className="error-section">
+                  <Alert severity="error">{loginErrorMsg}</Alert>
+                </div>
+              ) : null}
+
               <div className="button-container">
-                <Button className="login-button" variant="contained" color="primary" disableElevation onClick={() => navigate(APP_ROUTES.PRIVATE.DASHBOARD)}>
-                  {t("pages.login.login")}
-                </Button>
+                <LoadingButton className="login-button" loading={submitting} variant="contained" color="primary" disabled={submitting} disableElevation onClick={(event) => handleSubmit(event)}>
+                  {" "}
+                  {t("pages.login.login")}{" "}
+                </LoadingButton>
               </div>
             </LoginForm>
           </div>

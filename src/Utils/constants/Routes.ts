@@ -13,3 +13,11 @@ export const APP_ROUTES = {
     PONTO24: "/home/ponto-24-config",
   },
 };
+
+export const API_ROUTES = {
+  AUTH: {
+    LOGIN: "/auth/login",
+    LOGOUT: "/auth/logout",
+    VALIDATE_SESSION: "/auth/validate-session",
+  },
+};

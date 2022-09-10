@@ -29,6 +29,7 @@
         "camelcase": "off",
         "func-names": "off",
         "import/no-unresolved": "error",
+        "no-underscore-dangle": "off",
         "@typescript-eslint/naming-convention": [
             "error",
             {

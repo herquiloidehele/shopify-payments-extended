@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestHeaders } from "axios";
 
-import AccessToken from "./AccessToken";
+import { Constants } from "../Utils/constants/Constants";
 
 export default class HttpClient {
   private static classInstance: HttpClient;
@@ -9,8 +9,6 @@ export default class HttpClient {
   private constructor() {}
 
   public static getInstance(): HttpClient {
-    console.log({ config: process.env.REACT_APP_API_ENDPOINT });
-
     if (!HttpClient.axiosInstance) {
       HttpClient.classInstance = new HttpClient();
 
@@ -39,9 +37,9 @@ export default class HttpClient {
 
   private static addRequestInterceptors() {
     HttpClient.axiosInstance.interceptors.request.use((request) => {
-      const token = AccessToken.getToken();
+      const token = sessionStorage.getItem(Constants.TOKEN_KEY);
       if (request.headers && token) {
-        request.headers.Authorization = `Bearer ${token}`;
+        request.headers.Authorization = `${token}`;
         request.headers.ContentType = "application/json";
       }
       return request;

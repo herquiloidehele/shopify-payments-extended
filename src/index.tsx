@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 
 import HttpClient from "./Api/HttpClient";
 import reportWebVitals from "./reportWebVitals";
-import RoutesWrapper from "./RoutesWrapper";
+import RoutesWrapper from "./Routes/RoutesWrapper";
 import SplashScreen from "./UI/components/SplashScreen/SplashScreen";
 
 import "./i18n";

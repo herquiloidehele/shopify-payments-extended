@@ -14,7 +14,12 @@
       "domain": "Domínio da loja",
       "password": "Senha",
       "forgotPassword": "Esqueceu a senha",
-      "login": "Entrar"
+      "login": "Entrar",
+      "errors": {
+        "mandatoryFields": "Por favor preencha todos os campos",
+        "unexpectedError": "Ocorreu um erro enesperado, tente novamente mais tarde",
+        "authenticationFailed": "Credenciais Inválidas"
+      }
     },
     "home": {
       "header": {
