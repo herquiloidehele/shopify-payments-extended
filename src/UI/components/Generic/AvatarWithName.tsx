@@ -20,12 +20,24 @@ const AvatarWithNameWrapper = styled.div`
   }
 `;
 
-const AvatarWithName: React.FC<{ name: string; image: string }> = ({ name, image }) => {
+const AvatarWithName: React.FC<{ name: string; image?: string }> = ({ name, image }) => {
   return (
     <AvatarWithNameWrapper>
-      <Avatar alt={name} src={image} /> <span>{name}</span>
+      {image ? (
+        <>
+          <Avatar alt={name} src={image} /> <span>{name}</span>
+        </>
+      ) : (
+        <>
+          <Avatar alt={name} /> <span>{name}</span>
+        </>
+      )}
     </AvatarWithNameWrapper>
   );
+};
+
+AvatarWithName.defaultProps = {
+  image: "",
 };
 
 export default AvatarWithName;

@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Badge, Grid } from "@mui/material";
 import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { ThemeContext } from "styled-components";
@@ -13,7 +13,7 @@ import useHome from "./useHome";
 
 const Home: React.FC = () => {
   const themeContext = useContext(ThemeContext);
-  const { usersStatisticsData, lastPlaysRows, paysStatisticsData } = useHome();
+  const { usersStatisticsData, payments, paysStatisticsData } = useHome();
   const { t } = useTranslation();
 
   return (
@@ -41,7 +41,7 @@ const Home: React.FC = () => {
       <Grid container columnSpacing={5} marginTop={5}>
         <Grid item xs={12} style={{ height: "100%" }}>
           <CustomCardComponent title={t("pages.home.cardPayments.title")}>
-            <PaymentsTable tableRows={lastPlaysRows} />
+            <PaymentsTable tableRows={payments} />
           </CustomCardComponent>
         </Grid>
       </Grid>

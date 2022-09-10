@@ -1,12 +1,17 @@
+import { Chip } from "@mui/material";
 import { ApexOptions } from "apexcharts";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import AppService from "../../../Api/Services/AppService";
 import AvatarWithName from "../../components/Generic/AvatarWithName";
 import { MoneyStye } from "../../components/Generic/Style";
 
 const useHome = () => {
   const { t } = useTranslation();
+  const [loading, setLoading] = useState(true);
+  const [payments, setPayments] = useState<any[]>([]);
+  const [error, setError] = useState(false);
 
   const usersStatisticsData: ApexOptions["series"] = [
     {
@@ -22,26 +27,50 @@ const useHome = () => {
     },
   ];
 
-  function createLastPlaysData(createdBy: string, acceptedBy: string, value: number, winner: string, status: string) {
-    return {
-      order: <AvatarWithName name={createdBy} image="https://material-ui.com/static/images/avatar/2.jpg" />,
-      customer: <AvatarWithName name={acceptedBy} image="https://material-ui.com/static/images/avatar/1.jpg" />,
-      amount: <MoneyStye mode="SUCCESS">{value} MZN</MoneyStye>,
-      date: <AvatarWithName name={winner} image="https://material-ui.com/static/images/avatar/3.jpg" />,
-      status,
-    };
+  const getBadge = (status: boolean) => {
+    if (status) {
+      return <Chip label="Pago" color="primary" size="small" />;
+    }
+    return <Chip label="Falhado" color="error" size="small" />;
+  };
+
+  function createPaymentData(paymentData: any[]): any[] {
+    if (!paymentData) {
+      return [];
+    }
+
+    return paymentData.map((data: any) => {
+      return {
+        order: `${data.orderNumber}`,
+        customer: <AvatarWithName name={data.customer} />,
+        amount: <MoneyStye mode="SUCCESS">{data.price} MZN</MoneyStye>,
+        date: new Date(data.createdAt).toString().slice(0, 15),
+        status: getBadge(data.status),
+      };
+    });
   }
 
-  const lastPlaysRows = [
-    createLastPlaysData("Frozen yoghurt", "Herquiloide Hele", 176, "Frozen yoghurt", "Frozen yoghurt"),
-    createLastPlaysData("Frozen yoghurt", "Herquiloide Hele", 176, "Frozen yoghurt", "Frozen yoghurt"),
-    createLastPlaysData("Frozen yoghurt", "Herquiloide Hele", 176, "Frozen yoghurt", "Frozen yoghurt"),
-    createLastPlaysData("Frozen yoghurt", "Herquiloide Hele", 176, "Frozen yoghurt", "Frozen yoghurt"),
-    createLastPlaysData("Frozen yoghurt", "Herquiloide Hele", 176, "Frozen yoghurt", "Frozen yoghurt"),
-    createLastPlaysData("Frozen yoghurt", "Herquiloide Hele", 176, "Frozen yoghurt", "Frozen yoghurt"),
-  ];
+  const fetchPayments = () => {
+    setLoading(true);
+    setError(false);
 
-  return { usersStatisticsData, lastPlaysRows, paysStatisticsData };
+    AppService.getPaymentsList("sugarfitshop.myshopify.com")
+      .then((paymentList: any) => {
+        setPayments(createPaymentData(paymentList));
+      })
+      .catch((error) => {
+        setError(true);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    fetchPayments();
+  }, []);
+
+  return { usersStatisticsData, payments, paysStatisticsData };
 };
 
 export default useHome;

@@ -8,13 +8,13 @@ import useHome from "../Home/useHome";
 
 const PaymentsPage = () => {
   const { t } = useTranslation();
-  const { lastPlaysRows } = useHome();
+  const { payments } = useHome();
 
   return (
     <Grid container>
       <Grid item xs={12} style={{ height: "100%" }}>
         <CustomCardComponent title={t("pages.payments.title")}>
-          <PaymentsTable tableRows={lastPlaysRows} />
+          <PaymentsTable tableRows={payments} />
         </CustomCardComponent>
       </Grid>
     </Grid>
