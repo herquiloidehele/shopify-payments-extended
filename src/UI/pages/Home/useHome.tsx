@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import AppService from "../../../Api/Services/AppService";
+import AuthService from "../../../Api/Services/AuthService";
 import AvatarWithName from "../../components/Generic/AvatarWithName";
 import { MoneyStye } from "../../components/Generic/Style";
 
@@ -59,11 +60,13 @@ const useHome = () => {
     setLoading(true);
     setError(false);
 
-    AppService.getPaymentsList("sugarfitshop.myshopify.com")
+    const userStoreId = AuthService.getAuthUser?.storeId || "";
+
+    AppService.getPaymentsList(userStoreId)
       .then((paymentList: any) => {
         setPayments(createPaymentData(paymentList));
       })
-      .catch((error) => {
+      .catch(() => {
         setError(true);
       })
       .finally(() => {
@@ -75,12 +78,14 @@ const useHome = () => {
     setLoading(true);
     setError(false);
 
-    AppService.getShopReport("sugarfitshop.myshopify.com")
+    const userStoreId = AuthService.getAuthUser?.storeId || "";
+
+    AppService.getShopReport(userStoreId)
       .then((paymentReport: any) => {
         setPaymentsReport(paymentReport);
         // setPayments(createPaymentData(paymentReport.payments));
       })
-      .catch((error) => {
+      .catch(() => {
         setError(true);
       })
       .finally(() => {

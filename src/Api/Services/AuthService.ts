@@ -14,6 +14,8 @@ export default abstract class AuthService {
     return !!AccessToken.getToken();
   }
 
+  private static user: IUser | null = null;
+
   public static validateSession(): Promise<IUser> {
     Logger.log(this.LOG_TAG, "Start validate session");
 
@@ -28,6 +30,7 @@ export default abstract class AuthService {
           AccessToken.setToken(userData.token, "");
           Logger.log(this.LOG_TAG, "Converted Login Data: ", userData);
           sessionStorage.setItem(Constants.TOKEN_KEY, userData.token);
+          this.user = userData;
           resolve(userData);
         }
 
@@ -54,6 +57,7 @@ export default abstract class AuthService {
         AccessToken.setToken(userData.token, "");
         Logger.log(this.LOG_TAG, "Converted Login Data: ", userData);
         sessionStorage.setItem(Constants.TOKEN_KEY, userData.token);
+        this.user = userData;
         return userData;
       }
 
@@ -77,6 +81,11 @@ export default abstract class AuthService {
       name: data.fullName,
       role: data.role,
       token: data.token,
+      storeId: data.shop,
     };
+  }
+
+  public static get getAuthUser(): IUser | null {
+    return this.user;
   }
 }

@@ -3,11 +3,14 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import AppService from "../../../Api/Services/AppService";
+import AuthService from "../../../Api/Services/AuthService";
 import CustomCardComponent from "../../components/Generic/CustomCard/CustomCard";
 import { ButtonsControl } from "./Style";
 
 const MpesaConfigPage = () => {
   const { t } = useTranslation();
+
+  const userStoreId = AuthService.getAuthUser?.storeId || "";
 
   const [settingsData, setSettingsData] = useState({
     apiKey: "",
@@ -16,7 +19,7 @@ const MpesaConfigPage = () => {
     host: "",
     serviceProviderCode: "",
     accessToken: "",
-    shop: "sugarfitshop.myshopify.com",
+    shop: userStoreId,
   });
 
   const [showError, setShowError] = useState(false);
@@ -37,7 +40,7 @@ const MpesaConfigPage = () => {
   const getPaymentSettings = useCallback(() => {
     setFetchLoading(true);
 
-    AppService.getPaymentSettings("sugarfitshop.myshopify.com")
+    AppService.getPaymentSettings(userStoreId)
       .then((response: any) => {
         setSettingsData(response);
       })
