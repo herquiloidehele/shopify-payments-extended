@@ -10,7 +10,7 @@ import useLogin from "./useLogin";
 
 const Login: React.FC = () => {
   const { t } = useTranslation();
-  const { loginErrorMsg, setShopName, submitting, handleSubmit, setPassword } = useLogin();
+  const { loginErrorMsg, setUserId, submitting, handleSubmit, setPassword } = useLogin();
 
   return (
     <LoginWrapper>
@@ -31,7 +31,7 @@ const Login: React.FC = () => {
 
             <LoginForm>
               <div>
-                <TextField className="email-input" id="domain" type="text" label={t("pages.login.domain")} variant="standard" onChange={(event) => setShopName(event.target.value)} />
+                <TextField className="email-input" id="domain" type="text" label={t("pages.login.domain")} variant="standard" onChange={(event) => setUserId(event.target.value)} />
               </div>
               <div>
                 <TextField className="password-input" id="password" type="password" label={t("pages.login.password")} variant="standard" onChange={(event) => setPassword(event.target.value)} />

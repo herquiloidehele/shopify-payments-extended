@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
 
-import { IUser } from "../../models";
+import { IUser, IUserReport, USER_ROLES } from "../../models";
 import { Constants } from "../../Utils/constants/Constants";
 import { API_ROUTES } from "../../Utils/constants/Routes";
 import Logger from "../../Utils/Logger";
@@ -44,11 +44,11 @@ export default abstract class AuthService {
     });
   }
 
-  public static async login(shop: string, password: string): Promise<IUser> {
-    Logger.log(this.LOG_TAG, "Start login for: ", shop);
+  public static async login(userId: string, password: string): Promise<IUser> {
+    Logger.log(this.LOG_TAG, "Start login for: ", userId);
 
     try {
-      const axiosResponse: AxiosResponse = await HttpClient.post(API_ROUTES.AUTH.LOGIN, { shop, password });
+      const axiosResponse: AxiosResponse = await HttpClient.post(API_ROUTES.AUTH.LOGIN, { userId, password });
 
       Logger.log(this.LOG_TAG, "Login response: ", axiosResponse);
 
@@ -68,10 +68,53 @@ export default abstract class AuthService {
     }
   }
 
+  public static getUsersReport(): Promise<any> {
+    Logger.log(this.LOG_TAG, "Start request Users");
+
+    return new Promise(async (resolve, reject) => {
+      try {
+        const axiosResponse: AxiosResponse = await HttpClient.get(API_ROUTES.AUTH.USERS_LIST);
+
+        if (axiosResponse.status === 200 && axiosResponse.data) {
+          const convertdUserReport = this.convertUserReport(axiosResponse.data);
+          Logger.log(this.LOG_TAG, "Users Total loaded successfully", convertdUserReport);
+          resolve(convertdUserReport);
+          return;
+        }
+
+        Logger.error(this.LOG_TAG, "Error Fetching Users Total", axiosResponse);
+        reject(axiosResponse);
+      } catch (error) {
+        Logger.error(this.LOG_TAG, "Error Fetching Users Total", error);
+        reject(error);
+      }
+    });
+  }
+
   public static logout(): Promise<any> {
-    Logger.log(this.LOG_TAG, "Start logout");
-    sessionStorage.removeItem(Constants.TOKEN_KEY);
-    return HttpClient.post(API_ROUTES.AUTH.LOGOUT);
+    Logger.log(this.LOG_TAG, "Start request Logout");
+
+    return new Promise(async (resolve, reject) => {
+      try {
+        const axiosResponse: AxiosResponse = await HttpClient.post(API_ROUTES.AUTH.LOGOUT);
+
+        Logger.log(this.LOG_TAG, "Logout successfully", axiosResponse);
+
+        if (axiosResponse.status === 200) {
+          AccessToken.clearToken();
+          sessionStorage.removeItem(Constants.TOKEN_KEY);
+          AuthService.user = null;
+          resolve(true);
+          return;
+        }
+
+        Logger.error(this.LOG_TAG, "Error on Logout", axiosResponse);
+        reject(axiosResponse);
+      } catch (error) {
+        Logger.error(this.LOG_TAG, "Error on Logout", error);
+        reject(error);
+      }
+    });
   }
 
   private static convertLoginData(data: any): IUser {
@@ -82,10 +125,27 @@ export default abstract class AuthService {
       role: data.role,
       token: data.token,
       storeId: data.shop,
+      createdAt: new Date(data.createdAt),
+      status: data.status,
     };
   }
 
-  public static get getAuthUser(): IUser | null {
-    return this.user;
+  private static convertUserReport(data: any): IUserReport {
+    return {
+      total: data.totalUsers === 1 ? `${data.totalUsers} Utilizador` : `${data.totalUsers} Utilizadores`,
+      users: data.usersList ? data.usersList.map((user: any) => this.convertLoginData(user)) : [],
+    };
+  }
+
+  public static get getAuthUser(): IUser {
+    return this.user || ({} as IUser);
+  }
+
+  public static get isUserAdmin(): boolean {
+    return this.getAuthUser.role === USER_ROLES.ADMIN;
+  }
+
+  public static get isStoreOwner(): boolean {
+    return this.getAuthUser.role === USER_ROLES.STORE_OWNER;
   }
 }

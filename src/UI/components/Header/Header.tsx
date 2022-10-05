@@ -1,9 +1,11 @@
 import { Notifications, Menu as MenuIcon, Settings, Logout, AccountCircle } from "@mui/icons-material";
-import { Avatar, Badge, Button, ListItemIcon, Menu, MenuItem } from "@mui/material";
+import { Avatar, Badge, Button, CircularProgress, ListItemIcon, Menu, MenuItem } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 import AuthService from "../../../Api/Services/AuthService";
+import { APP_ROUTES } from "../../../Utils/constants/Routes";
 import { HeaderWrapper, AvatarNotificationWrapper, InputSearch } from "../../pages/Home/Style";
 
 interface IHeaderProps {
@@ -11,6 +13,8 @@ interface IHeaderProps {
 }
 const Header: React.FC<IHeaderProps> = ({ onClickMenu }) => {
   const { t } = useTranslation();
+  const [loading, setLoading] = React.useState(false);
+  const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -20,6 +24,20 @@ const Header: React.FC<IHeaderProps> = ({ onClickMenu }) => {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    setLoading(true);
+    AuthService.logout()
+      .then(() => {
+        navigate(APP_ROUTES.PUBLIC.LOGIN);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -60,11 +78,17 @@ const Header: React.FC<IHeaderProps> = ({ onClickMenu }) => {
               </ListItemIcon>
               {t("pages.home.header.settings")}
             </MenuItem>
-            <MenuItem onClick={() => AuthService.logout()}>
-              <ListItemIcon>
-                <Logout fontSize="small" />
-              </ListItemIcon>
-              {t("pages.home.header.logout")}
+            <MenuItem onClick={handleLogout}>
+              {loading ? (
+                <CircularProgress />
+              ) : (
+                <>
+                  <ListItemIcon>
+                    <Logout fontSize="small" />
+                  </ListItemIcon>
+                  {t("pages.home.header.logout")}
+                </>
+              )}
             </MenuItem>
           </Menu>
         </div>

@@ -1,54 +1,74 @@
+import { AxiosResponse } from "axios";
+
+import { IPayment } from "../../models";
+import Logger from "../../Utils/Logger";
 import HttpClient from "../HttpClient";
+import AuthService from "./AuthService";
 
 export default abstract class AppService {
+  protected static LOG_TAG = "AppService";
+
   public static getPaymentsList(shop: any) {
-    console.log("Start request Payments: ", shop);
+    Logger.log(this.LOG_TAG, "Start request Payments: ", shop);
 
     return new Promise(async (resolve, reject) => {
       try {
-        const axiosResponse = await HttpClient.get(`payments/shop/${shop}`);
+        let axiosResponse: AxiosResponse;
+
+        if (AuthService.isUserAdmin) {
+          axiosResponse = await HttpClient.get(`payments/all`);
+        } else {
+          axiosResponse = await HttpClient.get(`payments/shop/${shop}`);
+        }
 
         if (axiosResponse.status === 200) {
           const convertedPayments = this.convertPaymentData(axiosResponse.data);
-          console.log("Payment Data loaded successfully", convertedPayments);
+          Logger.log(this.LOG_TAG, "Payment Data loaded successfully", convertedPayments);
           resolve(convertedPayments);
           return;
         }
 
-        console.error("Error Fetching Payments", axiosResponse);
+        Logger.error(this.LOG_TAG, "Error Fetching Payments", axiosResponse);
       } catch (error) {
-        console.error("Error Fetching Payments", error);
+        Logger.error(this.LOG_TAG, "Error Fetching Payments", error);
         reject(error);
       }
     });
   }
 
-  public static getShopReport(shop: string) {
-    console.log("Start request Shop Report: ", shop);
+  public static getShopReport() {
+    Logger.log(this.LOG_TAG, "Start request Shop Report");
 
     return new Promise(async (resolve, reject) => {
       try {
-        const axiosResponse = await HttpClient.get(`payments-report/shop/${shop}`);
+        let axiosResponse;
+
+        if (AuthService.isUserAdmin) {
+          axiosResponse = await HttpClient.get(`payments/all`);
+        } else {
+          const shop = AuthService.getAuthUser?.storeId || "";
+          axiosResponse = await HttpClient.get(`payments-report/shop/${shop}`);
+        }
 
         if (axiosResponse.status === 200) {
           const convertedPayments = this.convertShopReport(axiosResponse.data);
-          console.log("Payment Report Data loaded successfully", convertedPayments);
+          Logger.log(this.LOG_TAG, "Payment Report Data loaded successfully", convertedPayments);
           resolve(convertedPayments);
           return;
         }
 
-        console.error("Error Fetching Payments Report", axiosResponse);
+        Logger.error(this.LOG_TAG, "Error Fetching Payments Report", axiosResponse);
       } catch (error) {
-        console.error("Error Fetching Payments Report", error);
+        Logger.error(this.LOG_TAG, "Error Fetching Payments Report", error);
         reject(error);
       }
     });
   }
 
   public static async savePaymentSettings(data: any) {
-    console.log("Start saving payment settings", data);
+    Logger.log(this.LOG_TAG, "Start saving payment settings", data);
     const axiosResponse: any = await HttpClient.post("settings", data);
-    console.log("Payment settings saved successfully", axiosResponse);
+    Logger.log(this.LOG_TAG, "Payment settings saved successfully", axiosResponse);
     if (axiosResponse.status === 200) {
       return this.convertPaymentSettings(axiosResponse.data.settings, axiosResponse.data.ACCESS_TOKEN);
     }
@@ -57,9 +77,9 @@ export default abstract class AppService {
   }
 
   public static async getPaymentSettings(shop: any) {
-    console.log("Start Fetch payment settings", shop);
+    Logger.log(this.LOG_TAG, "Start Fetch payment settings", shop);
     const axiosResponse: any = await HttpClient.get(`settings/shop/${shop}`);
-    console.log("Payment settings fetched successfully", axiosResponse);
+    Logger.log(this.LOG_TAG, "Payment settings fetched successfully", axiosResponse);
     if (axiosResponse.status === 200) {
       return this.convertPaymentSettings(axiosResponse.data.settings, axiosResponse.data.ACCESS_TOKEN);
     }
@@ -67,10 +87,10 @@ export default abstract class AppService {
     throw new Error("Error Fetching payment settings");
   }
 
-  private static convertPaymentData(data: any) {
-    console.log("Raw Data", data);
-    if (data && data.payments) {
-      return data.payments.map((payment: any) => {
+  private static convertPaymentData(data: any): IPayment[] {
+    Logger.log(this.LOG_TAG, "Raw Data", data);
+    if (data) {
+      return data.map((payment: any) => {
         return {
           // eslint-disable-next-line no-underscore-dangle
           id: payment._id,
@@ -79,6 +99,7 @@ export default abstract class AppService {
           price: payment.valor,
           orderId: payment.orderId,
           status: payment.status,
+          shop: payment.shop,
           createdAt: payment.created_at,
         };
       });
@@ -89,7 +110,7 @@ export default abstract class AppService {
   private static convertShopReport(data: any) {
     return {
       payments: this.convertPaymentData(data.payments),
-      paymentsCount: `${data.paymentsCount} units.`,
+      paymentsCount: `${data.paymentsCount} Pagamentos`,
       paymentsTotal: `${data.paymentsTotal} MZN`,
     };
   }

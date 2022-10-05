@@ -9,7 +9,7 @@ import { APP_ROUTES } from "../../../Utils/constants/Routes";
 const useLogin = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const [shopName, setShopName] = useState("");
+  const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [loginErrorMsg, setLoginErrorMsg] = useState("");
@@ -24,14 +24,14 @@ const useLogin = () => {
         return;
       }
 
-      if (!String(shopName).trim() || !password) {
+      if (!String(userId).trim() || !password) {
         setLoginErrorMsg(t("pages.login.errors.mandatoryFields"));
         return;
       }
 
       setSubmitting(true);
 
-      AuthService.login(shopName, password).then(
+      AuthService.login(userId, password).then(
         () => {
           setSubmitting(false);
           navigate(APP_ROUTES.PRIVATE.DASHBOARD);
@@ -51,11 +51,11 @@ const useLogin = () => {
         }
       );
     },
-    [navigate, shopName, password]
+    [navigate, userId, password]
   );
 
   return {
-    setShopName,
+    setUserId,
     setPassword,
     loginErrorMsg,
     handleSubmit,

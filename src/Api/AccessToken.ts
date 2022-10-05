@@ -27,4 +27,9 @@ export default class AccessToken {
   public static getRefreshToken() {
     return AccessToken.refreshToken;
   }
+
+  public static clearToken() {
+    AccessToken.token = "";
+    AccessToken.refreshToken = "";
+  }
 }

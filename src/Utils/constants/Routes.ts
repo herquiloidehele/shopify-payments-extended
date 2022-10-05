@@ -19,5 +19,6 @@ export const API_ROUTES = {
     LOGIN: "/auth/login",
     LOGOUT: "/auth/logout",
     VALIDATE_SESSION: "/auth/validate-session",
+    USERS_LIST: "/auth/users-list",
   },
 };

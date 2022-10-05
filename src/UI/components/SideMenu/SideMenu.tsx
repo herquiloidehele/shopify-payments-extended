@@ -18,7 +18,7 @@ interface ISideMenuProps {
 }
 
 const SideMenu: React.FC<ISideMenuProps> = ({ menuItems, defaultMenuItem, toggleMenu }) => {
-  const [isOpen, setIsOpen] = React.useState(true);
+  const [isOpen, setIsOpen] = React.useState(false);
   const [selectedMenuItem, setSelectedMenuItem] = React.useState(defaultMenuItem);
 
   const handleClickMenuItem = useCallback(
@@ -33,7 +33,7 @@ const SideMenu: React.FC<ISideMenuProps> = ({ menuItems, defaultMenuItem, toggle
   );
 
   useEffect(() => {
-    setIsOpen(!isOpen);
+    setIsOpen(!toggleMenu);
   }, [toggleMenu]);
 
   return (

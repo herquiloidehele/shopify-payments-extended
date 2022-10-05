@@ -1,17 +1,14 @@
 import { Chip } from "@mui/material";
 import { ApexOptions } from "apexcharts";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import AppService from "../../../Api/Services/AppService";
-import AuthService from "../../../Api/Services/AuthService";
+import { IPayment, IUser } from "../../../models";
 import AvatarWithName from "../../components/Generic/AvatarWithName";
 import { MoneyStye } from "../../components/Generic/Style";
 
 const useHome = () => {
   const { t } = useTranslation();
-  const [loading, setLoading] = useState(true);
-  const [payments, setPayments] = useState<any[]>([]);
   const [error, setError] = useState(false);
   const [paymentReport, setPaymentsReport] = useState<any>({
     payments: [],
@@ -40,7 +37,41 @@ const useHome = () => {
     return <Chip label="Falhado" color="error" size="small" />;
   };
 
-  function createPaymentData(paymentData: any[]): any[] {
+  const getUserBadge = (status: boolean) => {
+    if (status) {
+      return <Chip label="Activo" color="primary" size="small" />;
+    }
+    return <Chip label="Desactivo" color="error" size="small" />;
+  };
+
+  const paymentsTableColumns = [
+    t("pages.home.cardPayments.table.order"),
+    t("pages.home.cardPayments.table.customer"),
+    t("pages.home.cardPayments.table.amount"),
+    t("pages.home.cardPayments.table.date"),
+    t("pages.home.cardPayments.table.status"),
+  ];
+
+  const usersTableColumns = [
+    t("pages.home.cardUsers.table.name"),
+    t("pages.home.cardUsers.table.role"),
+    t("pages.home.cardUsers.table.shop"),
+    t("pages.home.cardUsers.table.status"),
+    t("pages.home.cardUsers.table.email"),
+    t("pages.home.cardUsers.table.createdAt"),
+  ];
+
+  const createUsersTableRows = (users: IUser[]) => {
+    if (!users) {
+      return [];
+    }
+
+    return users.map((user: IUser) => {
+      return [<AvatarWithName name={`${user.name}`} image="" />, user.role, user.storeId, getUserBadge(user.status), user.email, user.createdAt.toString().slice(0, 15)];
+    });
+  };
+
+  function createPaymentData(paymentData: IPayment[]): any[] {
     if (!paymentData) {
       return [];
     }
@@ -56,48 +87,7 @@ const useHome = () => {
     });
   }
 
-  const fetchPayments = () => {
-    setLoading(true);
-    setError(false);
-
-    const userStoreId = AuthService.getAuthUser?.storeId || "";
-
-    AppService.getPaymentsList(userStoreId)
-      .then((paymentList: any) => {
-        setPayments(createPaymentData(paymentList));
-      })
-      .catch(() => {
-        setError(true);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
-
-  const fetchPaymentsReport = () => {
-    setLoading(true);
-    setError(false);
-
-    const userStoreId = AuthService.getAuthUser?.storeId || "";
-
-    AppService.getShopReport(userStoreId)
-      .then((paymentReport: any) => {
-        setPaymentsReport(paymentReport);
-        // setPayments(createPaymentData(paymentReport.payments));
-      })
-      .catch(() => {
-        setError(true);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
-
-  useEffect(() => {
-    fetchPayments();
-  }, []);
-
-  return { usersStatisticsData, payments, paysStatisticsData, paymentReport, fetchPaymentsReport };
+  return { usersStatisticsData, createUsersTableRows, usersTableColumns, paysStatisticsData, paymentReport, createPaymentData, paymentsTableColumns };
 };
 
 export default useHome;

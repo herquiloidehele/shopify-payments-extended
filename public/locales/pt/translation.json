@@ -11,7 +11,7 @@
       "title": "Entrar no sitema",
       "subtitle": "Introduza o seu domínio e senha para continuar",
       "email": "Email",
-      "domain": "Domínio da loja",
+      "domain": "Domínio da loja ou Email",
       "password": "Senha",
       "forgotPassword": "Esqueceu a senha",
       "login": "Entrar",
@@ -40,6 +40,10 @@
         "subtitle": "Sistema de controle de pagamentos customizados do SHOPIFY"
       },
       "statisticCard": {
+        "users": {
+            "title": "Utilizadores",
+            "subtitle": "Quantidade de Clientes Registrados"
+        },
         "no-payments": {
           "title": "No. Pagamentos",
           "subtitle": "Quantidade de Pagamentos realizados"
@@ -56,6 +60,17 @@
           "customer": "Cliente",
           "amount": "Valor",
           "date": "Data",
+          "status": "Estado"
+        }
+      },
+      "cardUsers": {
+        "title": "Últimos Utilizadores",
+        "table":  {
+          "name": "Nome",
+          "shop": "Loja",
+          "email": "Email",
+          "createdAt": "Data",
+          "role": "Tipo de utilizador",
           "status": "Estado"
         }
       }
