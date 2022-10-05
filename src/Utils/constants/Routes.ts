@@ -9,6 +9,8 @@ export const APP_ROUTES = {
     HOME: "/home/dashboard",
     PAYMENTS: "/home/payments",
     MPESA: "/home/mpesa-config",
+    SETTINGS: "/home/account-settings",
+    USERS: "/home/users",
     BIM: "/home/bim-config",
     PONTO24: "/home/ponto-24-config",
   },

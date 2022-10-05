@@ -31,6 +31,8 @@
       "menu": {
         "home": "Início",
         "payments": "Pagamentos",
+        "settings": "Definições",
+        "users": "Users",
         "mpesa-config": "Mpesa",
         "bim-config": "BIM",
         "ponto-24-config": "Ponto 24"

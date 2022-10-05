@@ -1,4 +1,4 @@
-import { Notifications, Menu as MenuIcon, Settings, Logout, AccountCircle } from "@mui/icons-material";
+import { Notifications, Menu as MenuIcon, Logout, ManageAccountsOutlined, AccountCircleOutlined } from "@mui/icons-material";
 import { Avatar, Badge, Button, CircularProgress, ListItemIcon, Menu, MenuItem } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
@@ -68,13 +68,13 @@ const Header: React.FC<IHeaderProps> = ({ onClickMenu }) => {
           >
             <MenuItem>
               <ListItemIcon>
-                <AccountCircle fontSize="small" />
+                <AccountCircleOutlined fontSize="small" />
               </ListItemIcon>
               {t("pages.home.header.profile")}
             </MenuItem>
             <MenuItem>
               <ListItemIcon>
-                <Settings fontSize="small" />
+                <ManageAccountsOutlined fontSize="small" />
               </ListItemIcon>
               {t("pages.home.header.settings")}
             </MenuItem>
