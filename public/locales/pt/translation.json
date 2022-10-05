@@ -2,7 +2,8 @@
   "generics": {
     "appName": "Shopify Payments extended",
     "buttons": {
-      "save": "Salvar"
+      "save": "Salvar",
+      "new": "Novo"
     }
   },
   "pages": {
@@ -79,6 +80,9 @@
     },
     "payments": {
       "title": "Pagamentos"
+    },
+    "users": {
+      "title": "Users"
     },
     "mpesaConfig": {
       "form1": {

@@ -8,7 +8,7 @@ interface ISideMenuStyle {
 
 export const SideMenuWrapper = styled.div<ISideMenuStyle>`
   background-color: ${({ theme }) => theme.colors.primary};
-  width: ${({ isOpen }) => (isOpen ? pixel2Rem(440) : pixel2Rem(90))};
+  width: ${({ isOpen }) => (isOpen ? pixel2Rem(300) : pixel2Rem(90))};
   min-height: 100vh;
   padding: ${pixel2Rem(30)} 0;
   display: flex;
@@ -16,6 +16,8 @@ export const SideMenuWrapper = styled.div<ISideMenuStyle>`
   flex-direction: column;
   overflow: hidden;
   transition: all 0.5s ease-in-out;
+  position: fixed;
+  z-index: 2;
 
   .short-logo {
     width: ${pixel2Rem(40)};
@@ -23,7 +25,7 @@ export const SideMenuWrapper = styled.div<ISideMenuStyle>`
   }
 
   .full-logo {
-    width: ${pixel2Rem(270)};
+    width: ${pixel2Rem(200)};
     height: auto;
   }
 `;
