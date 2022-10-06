@@ -3,7 +3,6 @@ export const APP_ROUTES = {
     ROOT: "/",
     LOGIN: "/login",
   },
-
   PRIVATE: {
     DASHBOARD: "/home",
     HOME: "/home/dashboard",
@@ -22,5 +21,8 @@ export const API_ROUTES = {
     LOGOUT: "/auth/logout",
     VALIDATE_SESSION: "/auth/validate-session",
     USERS_LIST: "/auth/users-list",
+  },
+  USER: {
+    CREATE: "/auth/register",
   },
 };

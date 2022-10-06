@@ -7,6 +7,7 @@ export interface IUser {
   storeId: string;
   createdAt: Date;
   status: boolean;
+  password?: string;
 }
 
 export enum USER_ROLES {
