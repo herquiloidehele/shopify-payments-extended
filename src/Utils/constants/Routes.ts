@@ -24,5 +24,7 @@ export const API_ROUTES = {
   },
   USER: {
     CREATE: "/auth/register",
+    DELETE: (userId: string) => `/auth/delete-user/${userId}`,
+    EDIT: "/auth/edit-user",
   },
 };

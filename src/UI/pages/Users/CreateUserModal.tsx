@@ -30,14 +30,19 @@ const CreateUserModal: React.FC<ICreateUserModalProps> = ({ isOpen, onClose }) =
 
   const handleCreateNewUser = useCallback(() => {
     setSaveLoading(true);
+    setShowPopup(false);
+    setToastMessage("");
 
     UserService.createUser(user)
       .then((response) => {
+        setToastMessage("Usuário criado com sucesso");
+        setShowPopup(true);
         onClose(true);
       })
       .catch((error) => {
         console.log(error);
         setToastMessage("Erro ao criar usuário");
+        setShowPopup(true);
       })
       .finally(() => {
         setSaveLoading(false);
@@ -101,23 +106,23 @@ const CreateUserModal: React.FC<ICreateUserModalProps> = ({ isOpen, onClose }) =
           noValidate
           autoComplete="off"
         >
-          <TextField fullWidth required label="Nome" name="name" value={user.name} onChange={(event) => handleFieldChange(event)} disabled={saveLoading} />
-          <TextField fullWidth required label="Email" name="email" value={user.email} onChange={(event) => handleFieldChange(event)} disabled={saveLoading} />
-          <TextField fullWidth required label="Password" name="password" value={user.password} onChange={(event) => handleFieldChange(event)} disabled={saveLoading} />
+          <TextField fullWidth required label="Nome" name="name" value={user.name} onChange={handleFieldChange} disabled={saveLoading} />
+          <TextField fullWidth required label="Email" name="email" value={user.email} onChange={handleFieldChange} disabled={saveLoading} />
+          <TextField fullWidth required label="Password" name="password" value={user.password} onChange={handleFieldChange} disabled={saveLoading} />
           <FormControl fullWidth style={{ margin: "8px" }}>
             <InputLabel id="demo-simple-select-label">Tipo de Utilizador</InputLabel>
-            <Select labelId="role-labelId" id="demo-simple-select" name="role" value={user.role} label="Tipo de Utilizador" onChange={(event) => handleFieldChange(event)}>
+            <Select labelId="role-labelId" id="demo-simple-select" name="role" value={user.role} label="Tipo de Utilizador" onChange={handleFieldChange} disabled={saveLoading}>
               <MenuItem value={USER_ROLES.ADMIN}>Administrator</MenuItem>
               <MenuItem value={USER_ROLES.STORE_OWNER}>Store Owner</MenuItem>
             </Select>
           </FormControl>
           {user.role === USER_ROLES.STORE_OWNER && (
-            <TextField fullWidth required label="Domínio da loja Shopify" name="storeId" value={user.storeId} onChange={(event) => handleFieldChange(event)} disabled={saveLoading} />
+            <TextField fullWidth required label="Domínio da loja Shopify" name="storeId" value={user.storeId} onChange={handleFieldChange} disabled={saveLoading} />
           )}
 
           <div style={{ margin: "8px" }}>
             <InputLabel id="user-status">Estado</InputLabel>
-            <Switch id="user-status" name="status" style={{ width: "100%" }} checked={user.status} onChange={handleFieldChange} {...label} />
+            <Switch id="user-status" name="status" style={{ width: "100%" }} checked={user.status} onChange={handleFieldChange} {...label} disabled={saveLoading} />
           </div>
         </Box>
 

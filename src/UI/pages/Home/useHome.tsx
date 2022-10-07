@@ -87,7 +87,7 @@ const useHome = () => {
     });
   }
 
-  return { usersStatisticsData, createUsersTableRows, usersTableColumns, paysStatisticsData, paymentReport, createPaymentData, paymentsTableColumns };
+  return { usersStatisticsData, createUsersTableRows, usersTableColumns, paysStatisticsData, paymentReport, createPaymentData, paymentsTableColumns, getUserBadge };
 };
 
 export default useHome;

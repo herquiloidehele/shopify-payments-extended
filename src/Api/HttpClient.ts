@@ -31,6 +31,10 @@ export default class HttpClient {
     return HttpClient.axiosInstance.post<ResponseType>(path, data, { headers });
   }
 
+  public static delete<ResponseType>(path: string, headers?: AxiosRequestHeaders) {
+    return HttpClient.axiosInstance.delete<ResponseType>(path, { headers });
+  }
+
   public static put<ResponseType>(path: string, data?: any, headers?: AxiosRequestHeaders) {
     return HttpClient.axiosInstance.put<ResponseType>(path, data, { headers });
   }
