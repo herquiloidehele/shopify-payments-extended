@@ -13,6 +13,7 @@ import TableWrapper from "../../components/Tables/TableWrapper";
 import useHome from "../Home/useHome";
 import { ButtonsControl } from "../MpesaConfig/Style";
 import CreateUserModal from "./CreateUserModal";
+import UpdateUserModal from "./UpdateUserModal";
 
 const Users: React.FC = () => {
   const [usersReport, setUsersReport] = React.useState<IUserReport>({} as IUserReport);
@@ -23,6 +24,7 @@ const Users: React.FC = () => {
   const [selectedUser, setSelectedUser] = React.useState<IUser>();
   const [removeConfirmationModal, setRemoveConfirmationModal] = React.useState<any>({});
   const [isRemovePoupOpen, setIsRemovePopupOpen] = useState(false);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = React.useState(false);
 
   const { t } = useTranslation();
 
@@ -67,7 +69,9 @@ const Users: React.FC = () => {
   }, [selectedUser]);
 
   const handleEditItem = (user: IUser) => {
-    openCreateUserModal();
+    console.log("Set Selected", user);
+    setSelectedUser(user);
+    setIsUpdateModalOpen(!isUpdateModalOpen);
   };
 
   const openRemoveConfirmationModal = (user: IUser) => {
@@ -106,6 +110,7 @@ const Users: React.FC = () => {
     }
 
     setIsCreateModalOpen(false);
+    setIsUpdateModalOpen(false);
   };
 
   const initRemoveModalData = useCallback(() => {
@@ -128,6 +133,7 @@ const Users: React.FC = () => {
     <Grid container rowSpacing={3}>
       <Grid item xs={12} className="buttons-control">
         {isCreateModalOpen && <CreateUserModal isOpen={isCreateModalOpen} onClose={handleCloseModal} />}
+        {isUpdateModalOpen && <UpdateUserModal isOpen={isUpdateModalOpen} onClose={handleCloseModal} userData={selectedUser as IUser} />}
         <ConfirmModal {...removeConfirmationModal} isOpen={isRemovePoupOpen} onAccept={handleDeleteItem} />
         <ButtonsControl>
           <Button className="save-button" variant="contained" color="primary" disableElevation onClick={() => openCreateUserModal()}>

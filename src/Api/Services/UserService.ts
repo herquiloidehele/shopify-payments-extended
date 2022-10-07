@@ -57,7 +57,7 @@ export default abstract class UserService {
           status: userData.status,
         };
 
-        const axiosResponse: AxiosResponse = await HttpClient.put(API_ROUTES.USER.CREATE, rawData);
+        const axiosResponse: AxiosResponse = await HttpClient.put(API_ROUTES.USER.EDIT, rawData);
 
         Logger.log(this.LOG_TAG, "Update user response: ", axiosResponse);
         if (axiosResponse.status === 200) {
