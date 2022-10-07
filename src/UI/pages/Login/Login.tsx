@@ -36,9 +36,7 @@ const Login: React.FC = () => {
               <div>
                 <TextField className="password-input" id="password" type="password" label={t("pages.login.password")} variant="standard" onChange={(event) => setPassword(event.target.value)} />
               </div>
-              <div className="reset-password-link">
-                <Link to="/">{t("pages.login.forgotPassword")} </Link>
-              </div>
+              <div className="reset-password-link">{false && <Link to="/">{t("pages.login.forgotPassword")} </Link>}</div>
 
               {loginErrorMsg ? (
                 <div className="error-section">
