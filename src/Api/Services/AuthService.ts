@@ -132,7 +132,7 @@ export default abstract class AuthService {
 
   private static convertUserReport(data: any): IUserReport {
     return {
-      total: data.totalUsers === 1 ? `${data.totalUsers} Utilizador` : `${data.totalUsers} Utilizadores`,
+      total: data.totalUsers === 1 ? `${data.totalUsers}` : `${data.totalUsers}`,
       users: data.usersList ? data.usersList.map((user: any) => this.convertLoginData(user)) : [],
     };
   }

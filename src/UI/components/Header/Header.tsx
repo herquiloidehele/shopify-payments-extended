@@ -1,12 +1,15 @@
-import { Notifications, Menu as MenuIcon, Logout, ManageAccountsOutlined, AccountCircleOutlined } from "@mui/icons-material";
-import { Avatar, Badge, Button, CircularProgress, ListItemIcon, Menu, MenuItem } from "@mui/material";
-import React from "react";
+import { Menu as MenuIcon, Logout, ManageAccountsOutlined, AccountCircleOutlined } from "@mui/icons-material";
+import { Avatar, Button, CircularProgress, ListItemIcon, Menu, MenuItem } from "@mui/material";
+import i18n from "i18next";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 import AuthService from "../../../Api/Services/AuthService";
+import { LANGUAGUES } from "../../../models";
 import { APP_ROUTES } from "../../../Utils/constants/Routes";
 import { HeaderWrapper, AvatarNotificationWrapper, InputSearch } from "../../pages/Home/Style";
+import Dropdown, { IDropdownItem } from "../Dropdown/Dropdown";
 
 interface IHeaderProps {
   onClickMenu: () => void;
@@ -40,6 +43,13 @@ const Header: React.FC<IHeaderProps> = ({ onClickMenu }) => {
       });
   };
 
+  const [selectedLanguage, setSelectedLanguage] = useState(LANGUAGUES.find((language) => String(language.key).toLowerCase() === i18n.language) || LANGUAGUES[0]);
+
+  const changeLanguage = (language: IDropdownItem) => {
+    i18n.changeLanguage(String(language.key).toLowerCase());
+    setSelectedLanguage(language);
+  };
+
   return (
     <HeaderWrapper>
       <Button onClick={onClickMenu}>
@@ -47,11 +57,7 @@ const Header: React.FC<IHeaderProps> = ({ onClickMenu }) => {
       </Button>
       <InputSearch autoComplete="off" className="email-input" id="search" type="search" placeholder={t("pages.home.header.search")} />
       <AvatarNotificationWrapper>
-        <Button>
-          <Badge badgeContent={5} color="primary" overlap="circular" className="badge-icon">
-            <Notifications className="notification-icon" color="action" />
-          </Badge>
-        </Button>
+        <Dropdown defaultItem={selectedLanguage} items={LANGUAGUES} onSelect={changeLanguage} disabled={false} isInput />
         <div>
           <Button onClick={handleClick}>
             <Avatar className="avatar-icon" alt="Remy Sharp" src="https://material-ui.com/static/images/avatar/1.jpg" />

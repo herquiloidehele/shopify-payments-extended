@@ -67,7 +67,7 @@ const AdminHome: React.FC<IHomeProps> = ({ paymentReport, paymentReportError, pa
       <Grid container columnSpacing={5}>
         <Grid item xs={4}>
           <CardStatistics
-            value={userData?.total || ""}
+            value={t(`pages.home.statisticCard.users.title`, { value: userData?.total || "" })}
             title={t("pages.home.statisticCard.users.subtitle")}
             icon={<UserRoundIcon />}
             chartData={usersStatisticsData}
@@ -77,7 +77,7 @@ const AdminHome: React.FC<IHomeProps> = ({ paymentReport, paymentReportError, pa
 
         <Grid item xs={4}>
           <CardStatistics
-            value={paymentReport.paymentsCount}
+            value={t(`pages.home.statisticCard.no-payments.title`, { value: paymentReport.paymentsCount })}
             title={t("pages.home.statisticCard.no-payments.subtitle")}
             icon={<UserRoundIcon />}
             chartData={paymentsStatisticsData}

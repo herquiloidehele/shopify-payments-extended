@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="28px" height="28px" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Content</title>
+    <defs>
+        <circle id="path-1" cx="14" cy="14" r="14"></circle>
+        <path d="M28,14 L56,14 L56,28 L28,14 Z M28,14 L28,28 L0,28 L28,14 Z M28,14 L0,14 L0,0 L28,14 Z M28,14 L28,0 L56,0 L28,14 Z" id="path-3"></path>
+    </defs>
+    <g id="POC" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="00.00.02-Onboarding:-Choose-language" transform="translate(-156.000000, -176.000000)">
+            <g id="Group-4" transform="translate(142.000000, 119.000000)">
+                <g id="Lists-/-Mobile-Body-Light-/-Standard-/-Body-/-Icon24+Body-1-line-Copy" transform="translate(0.000000, 47.000000)">
+                    <g id="Content" transform="translate(14.000000, 10.000000)">
+                        <g id="Content" transform="translate(0.000000, -7.000000)">
+                            <g id="Content" transform="translate(0.000000, 7.000000)">
+                                <mask id="mask-2" fill="white">
+                                    <use xlink:href="#path-1"></use>
+                                </mask>
+                                <use id="Mask" fill="#D8D8D8" fill-rule="nonzero" xlink:href="#path-1"></use>
+                                <g id="Uk" mask="url(#mask-2)">
+                                    <g transform="translate(-14.000000, 0.000000)">
+                                        <polygon id="Path" stroke="none" fill="#00247D" fill-rule="evenodd" points="0 0 0 28 56 28 56 0"></polygon>
+                                        <path d="M0,0 L56,28 M56,0 L0,28" id="Shape" stroke="#FFFFFF" stroke-width="4.2" fill="#000000" fill-rule="nonzero"></path>
+                                        <g id="Clipped" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <mask id="mask-4" fill="white">
+                                                <use xlink:href="#path-3"></use>
+                                            </mask>
+                                            <g id="Shape"></g>
+                                            <path d="M0,0 L56,28 M56,0 L0,28" id="Shape" stroke="#CF142B" stroke-width="2.8" fill="#000000" fill-rule="nonzero" mask="url(#mask-4)"></path>
+                                        </g>
+                                        <path d="M28,0 L28,28 M0,14 L56,14" id="Shape" stroke="#FFFFFF" stroke-width="7" fill="#000000" fill-rule="nonzero"></path>
+                                        <path d="M28,0 L28,28 M0,14 L56,14" id="Shape" stroke="#CF142B" stroke-width="4.2" fill="#000000" fill-rule="nonzero"></path>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

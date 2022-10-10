@@ -110,7 +110,7 @@ export default abstract class AppService {
   private static convertShopReport(data: any) {
     return {
       payments: this.convertPaymentData(data.payments),
-      paymentsCount: `${data.paymentsCount} Pagamentos`,
+      paymentsCount: data.paymentsCount,
       paymentsTotal: `${data.paymentsTotal} MZN`,
     };
   }

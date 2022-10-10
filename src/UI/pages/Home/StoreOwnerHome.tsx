@@ -25,7 +25,7 @@ const StoreOwnerHome: React.FC<IHomeProps> = ({ paymentReport, paymentReportLoad
         </Grid>
         <Grid item xs={3}>
           <CardStatistics
-            value={paymentReport.paymentsCount}
+            value={t(`pages.home.statisticCard.no-payments.title`, { value: paymentReport.paymentsCount })}
             title={t("pages.home.statisticCard.no-payments.subtitle")}
             icon={<UserRoundIcon />}
             chartData={usersStatisticsData}

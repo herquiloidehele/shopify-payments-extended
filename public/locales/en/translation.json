@@ -1,0 +1,104 @@
+{
+  "generics": {
+    "appName": "Shopify Payments extended",
+    "buttons": {
+      "save": "Save",
+      "new": "New",
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    }
+  },
+  "pages": {
+    "login": {
+      "wellcomeMessage": "Welcome to the custom payments platform for Shopify.",
+      "title": "Login to the platform",
+      "subtitle": "Enter your domain and password to continue",
+      "email": "Email",
+      "domain": "Store domain or email",
+      "password": "Password",
+      "forgotPassword": "Forgot password",
+      "login": "Login",
+      "errors": {
+        "mandatoryFields": "Please fill in all fields",
+        "unexpectedError": "An unexpected error occurred, please try again later",
+        "authenticationFailed": "Invalid Credentials"
+      }
+    },
+    "home": {
+      "header": {
+        "search": "Search",
+        "profile": "Profile",
+        "logout": "Logout",
+        "settings": "Settings"
+      },
+      "menu": {
+        "home": "Home",
+        "payments": "Payments",
+        "settings": "Settings",
+        "users": "Users",
+        "mpesa-config": "M-Pesa",
+        "bim-config": "BIM",
+        "ponto-24-config": "Ponto 24"
+      },
+      "wellcomeCard": {
+        "title": "Welcome",
+        "subtitle": "Custom payments platform for SHOPIFY"
+      },
+      "statisticCard": {
+        "users": {
+            "title": "{{value}} Users",
+            "subtitle": "Total number of registered customers"
+        },
+        "no-payments": {
+          "title": "{{value}} No. Payments",
+          "subtitle": "Number of Payments Made"
+        },
+        "total-payments": {
+          "title": "Total Payments",
+          "subtitle": "Total amount collected"
+        }
+      },
+      "cardPayments": {
+        "title": "Latest Payments",
+        "table":  {
+          "order": "Order",
+          "customer": "Customer",
+          "amount": "Amount",
+          "date": "Date",
+          "status": "State"
+        }
+      },
+      "cardUsers": {
+        "title": "Last Users",
+        "table":  {
+          "name": "Name",
+          "shop": "Shop",
+          "email": "Email",
+          "createdAt": "Date",
+          "role": "Type of user",
+          "status": "State"
+        }
+      }
+    },
+    "payments": {
+      "title": "Payments"
+    },
+    "users": {
+      "title": "Users",
+      "removeModal": {
+        "title": "Remove user",
+        "message": "By removing this user, all data associated with it will be lost.",
+        "cancel": "Cancel",
+        "remove": "Remove"
+      }
+    },
+    "mpesaConfig": {
+      "form1": {
+        "title": "M-Pesa settings"
+      },
+      "form2": {
+        "title": "Shopify settings"
+      }
+    }
+  }
+}

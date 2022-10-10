@@ -3,7 +3,9 @@
     "appName": "Shopify Payments extended",
     "buttons": {
       "save": "Salvar",
-      "new": "Novo"
+      "new": "Novo",
+      "cancel": "Cancelar",
+      "confirm": "Confirmar"
     }
   },
   "pages": {
@@ -44,11 +46,11 @@
       },
       "statisticCard": {
         "users": {
-            "title": "Utilizadores",
-            "subtitle": "Quantidade de Clientes Registrados"
+          "title": "{{value}} Utilizadores",
+          "subtitle": "Quantidade de Clientes Registrados"
         },
         "no-payments": {
-          "title": "No. Pagamentos",
+          "title": "{{value}} Pagamentos",
           "subtitle": "Quantidade de Pagamentos realizados"
         },
         "total-payments": {
@@ -74,7 +76,8 @@
           "email": "Email",
           "createdAt": "Data",
           "role": "Tipo de utilizador",
-          "status": "Estado"
+          "status": "Estado",
+          "actions": "Acções"
         }
       }
     },
@@ -82,7 +85,14 @@
       "title": "Pagamentos"
     },
     "users": {
-      "title": "Users"
+      "title": "Users",
+      "removeModal": {
+        "title": "Remover Utilizador",
+        "message": "Ao remover este utilizador, todos os dados associados a ele serão perdidos.",
+        "cancel": "Cancelar",
+        "remove": "Remover"
+      }
+    }
     },
     "mpesaConfig": {
       "form1": {
@@ -93,4 +103,3 @@
       }
     }
   }
-}

@@ -1,3 +1,7 @@
+import EN_Icon from "./UI/assets/icon/ic_flag_en.svg";
+import PT_Icon from "./UI/assets/img/pt-flag.png";
+import { IDropdownItem } from "./UI/components/Dropdown/Dropdown";
+
 export interface IUser {
   id: string;
   email: string;
@@ -42,3 +46,20 @@ export interface IHomeProps {
   paymentReportError: boolean;
   paymentReportLoading: boolean;
 }
+
+const LANGUAGUES: IDropdownItem[] = [
+  {
+    id: 1,
+    description: "PT",
+    key: "PT",
+    icon: PT_Icon,
+  },
+  {
+    id: 2,
+    description: "EN",
+    key: "EN",
+    icon: EN_Icon,
+  },
+];
+
+export { LANGUAGUES };

@@ -6,8 +6,13 @@ i18n
   .use(initReactI18next)
   .use(i18Http)
   .init({
-    lng: "pt",
+    debug: false,
     fallbackLng: "pt",
+    supportedLngs: ["pt", "en"],
+    detection: {
+      order: ["cookie", "querystring"],
+      caches: ["cookie"],
+    },
     backend: {
       loadPath: `${process.env.PUBLIC_URL}/locales/{{lng}}/{{ns}}.json?v=20200703`,
     },

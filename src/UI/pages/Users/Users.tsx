@@ -28,7 +28,7 @@ const Users: React.FC = () => {
 
   const { t } = useTranslation();
 
-  const tableColumnsWrapper = [...usersTableColumns, "Acções"];
+  const tableColumnsWrapper = [...usersTableColumns, t("pages.home.cardUsers.table.actions")];
 
   const openCreateUserModal = () => {
     setIsCreateModalOpen(!isCreateModalOpen);
@@ -115,8 +115,8 @@ const Users: React.FC = () => {
 
   const initRemoveModalData = useCallback(() => {
     setRemoveConfirmationModal({
-      title: "Deseja realmente remover este utilizador?",
-      message: "Ao remover este utilizador, todos os dados associados a ele serão perdidos.",
+      title: t("pages.users.removeUserModal.title"),
+      message: t("pages.users.removeUserModal.message"),
       isOpen: false,
       onClose: () => {
         setIsRemovePopupOpen(false);
