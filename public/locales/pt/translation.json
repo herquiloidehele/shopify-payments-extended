@@ -92,7 +92,6 @@
         "cancel": "Cancelar",
         "remove": "Remover"
       }
-    }
     },
     "mpesaConfig": {
       "form1": {
@@ -101,5 +100,6 @@
       "form2": {
         "title": "Configurações Shopify"
       }
+    }
     }
   }
