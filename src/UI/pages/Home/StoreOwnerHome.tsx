@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { ThemeContext } from "styled-components";
 
 import { IHomeProps } from "../../../models";
+import { formatCurrency } from "../../../Utils/functions/Ui";
 import { ReactComponent as GameRoundIcon } from "../../assets/icon/game-round-icon.svg";
 import { ReactComponent as UserRoundIcon } from "../../assets/icon/user-round-icon.svg";
 import CardStatistics from "../../components/CardStatistics/CardStatistics";
@@ -35,7 +36,7 @@ const StoreOwnerHome: React.FC<IHomeProps> = ({ paymentReport, paymentReportLoad
 
         <Grid item xs={3}>
           <CardStatistics
-            value={paymentReport.paymentsTotal}
+            value={formatCurrency(paymentReport.paymentsTotal)}
             title={t("pages.home.statisticCard.total-payments.subtitle")}
             icon={<GameRoundIcon />}
             chartData={paysStatisticsData}

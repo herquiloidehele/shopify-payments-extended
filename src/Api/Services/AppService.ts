@@ -111,7 +111,7 @@ export default abstract class AppService {
     return {
       payments: this.convertPaymentData(data.payments),
       paymentsCount: data.paymentsCount,
-      paymentsTotal: `${data.paymentsTotal} MZN`,
+      paymentsTotal: data.paymentsTotal,
     };
   }
 
