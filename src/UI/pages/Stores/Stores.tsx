@@ -1,14 +1,16 @@
 import { Delete, Edit } from "@mui/icons-material";
 import { Button, Chip, Grid, IconButton } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import StoresManager from "../../../Managers/StoresManager";
 import { IStore } from "../../../models";
 import CustomCardComponent from "../../components/Generic/CustomCard/CustomCard";
+import ConfirmModal from "../../components/Modals/ConfirmModal";
 import TableWrapper from "../../components/Tables/TableWrapper";
 import { ButtonsControl } from "../MpesaConfig/Style";
 import CreateStoreModal from "./CreateStoreModal";
+import UpdateStoreModal from "./UpdateStoreModal";
 
 const Stores: React.FC = () => {
   const { t } = useTranslation();
@@ -16,6 +18,9 @@ const Stores: React.FC = () => {
   const [fetchLoading, setFetchLoading] = useState(true);
   const [isCreateModalOpen, setIsCreateModalOpen] = React.useState(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = React.useState(false);
+  const [selectedStore, setSelectedStore] = React.useState<IStore>();
+  const [isRemovePopupOpen, setIsRemovePopupOpen] = useState(false);
+  const [removeConfirmationModal, setRemoveConfirmationModal] = React.useState<any>({});
 
   const fetchStores = () => {
     setFetchLoading(true);
@@ -28,8 +33,20 @@ const Stores: React.FC = () => {
       });
   };
 
+  const initRemoveModalData = useCallback(() => {
+    setRemoveConfirmationModal({
+      title: t("pages.stores.removeModal.title"),
+      message: t("pages.stores.removeModal.message"),
+      isOpen: false,
+      onClose: () => {
+        setIsRemovePopupOpen(false);
+      },
+    });
+  }, []);
+
   useEffect(() => {
     fetchStores();
+    initRemoveModalData();
   }, []);
 
   const openCreateStoreModal = () => {
@@ -55,11 +72,27 @@ const Stores: React.FC = () => {
   };
 
   const openEditModal = (store: IStore) => {
-    console.log("Edit store", store);
+    setSelectedStore(store);
+    setIsUpdateModalOpen(!isUpdateModalOpen);
   };
 
+  const handleDeleteItem = useCallback(() => {
+    if (!selectedStore) {
+      console.log("No store selected");
+      return;
+    }
+
+    console.log("Deleting store", selectedStore);
+
+    StoresManager.deleteStore(selectedStore.id!).then(() => {
+      setIsRemovePopupOpen(false);
+      fetchStores();
+    });
+  }, [selectedStore]);
+
   const openDeleteModal = (store: IStore) => {
-    console.log("Delete store", store);
+    setSelectedStore(store);
+    setIsRemovePopupOpen(true);
   };
 
   const getActionButtons = (store: IStore) => {
@@ -90,6 +123,8 @@ const Stores: React.FC = () => {
     <Grid container rowSpacing={3}>
       <Grid item xs={12} className="buttons-control">
         {isCreateModalOpen && <CreateStoreModal isOpen={isCreateModalOpen} onClose={handleCloseModal} />}
+        {isUpdateModalOpen && <UpdateStoreModal isOpen={isUpdateModalOpen} onClose={handleCloseModal} storeData={selectedStore as IStore} />}
+        <ConfirmModal {...removeConfirmationModal} isOpen={isRemovePopupOpen} onAccept={handleDeleteItem} />
         <ButtonsControl>
           <Button disabled={fetchLoading} className="save-button" variant="contained" color="primary" disableElevation onClick={() => openCreateStoreModal()}>
             {t("generics.buttons.new")}

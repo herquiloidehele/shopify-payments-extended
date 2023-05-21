@@ -5,32 +5,43 @@ import StoresManager from "../../../Managers/StoresManager";
 import { IStore } from "../../../models";
 import ModalWrapper from "../../components/Modals/ModalWrapper";
 
-interface ICreateUserModalProps {
+interface IUpdateUserModalProps {
+  storeData: IStore;
   isOpen: boolean;
   onClose: (saved: boolean) => void;
 }
 
-const CreateStoreModal: React.FC<ICreateUserModalProps> = ({ isOpen, onClose }) => {
+const UpdateStoreModal: React.FC<IUpdateUserModalProps> = ({ storeData, isOpen, onClose }) => {
   const [saveLoading, setSaveLoading] = React.useState(false);
   const [modalData, setModalData] = React.useState<any | undefined>();
-  const label = { inputProps: { "aria-label": "Modal Create Store" } };
+  const label = { inputProps: { "aria-label": "Switch demo" } };
   const [store, setStore] = React.useState<IStore>({} as IStore);
   const [showPopup, setShowPopup] = React.useState(false);
   const [toastMeessage, setToastMessage] = useState("");
+
+  const handleFieldChange = (event: any) => {
+    if (event.target) {
+      if (event.target.name === "status") {
+        setStore({ ...store, status: event.target.checked });
+      } else {
+        setStore({ ...store, [event.target.name]: event.target.value });
+      }
+    }
+  };
 
   const handleCreateNewUser = useCallback(() => {
     setSaveLoading(true);
     setShowPopup(false);
     setToastMessage("");
 
-    StoresManager.createStore(store)
+    StoresManager.updateStore(store)
       .then(() => {
-        setToastMessage("Loja criada com sucesso");
+        setToastMessage("Loja Actualizada com sucesso");
         setShowPopup(true);
         onClose(true);
       })
       .catch(() => {
-        setToastMessage("Erro ao criar usuário");
+        setToastMessage("Erro ao Actualizar Loja");
         setShowPopup(true);
       })
       .finally(() => {
@@ -50,9 +61,9 @@ const CreateStoreModal: React.FC<ICreateUserModalProps> = ({ isOpen, onClose }) 
 
   const initModalInfo = useCallback(() => {
     setModalData({
-      id: "create-store-modal",
+      id: "update-store-modal",
       isOpen: false,
-      title: "Nova Loja",
+      title: "Actualizar utilizador",
       actionButtonText: "Salvar",
     });
   }, [modalData, store]);
@@ -79,15 +90,11 @@ const CreateStoreModal: React.FC<ICreateUserModalProps> = ({ isOpen, onClose }) 
     setShowPopup(false);
   };
 
-  const handleFieldChange = (event: any) => {
-    if (event.target) {
-      if (event.target.name === "status") {
-        setStore({ ...store, status: event.target.checked });
-      } else {
-        setStore({ ...store, [event.target.name]: event.target.value });
-      }
+  useEffect(() => {
+    if (storeData) {
+      setStore(storeData);
     }
-  };
+  }, [storeData]);
 
   return modalData ? (
     <ModalWrapper {...modalData} isOpen={isOpen} actionButtonOnClick={handleCreateNewUser} handleClose={handleClodeModal}>
@@ -115,4 +122,4 @@ const CreateStoreModal: React.FC<ICreateUserModalProps> = ({ isOpen, onClose }) 
   ) : null;
 };
 
-export default CreateStoreModal;
+export default UpdateStoreModal;

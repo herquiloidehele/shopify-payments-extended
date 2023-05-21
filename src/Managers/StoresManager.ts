@@ -22,7 +22,7 @@ export default abstract class StoresManager {
     }
   }
 
-  public static async createStore(shopData: any) {
+  public static async createStore(shopData: IStore) {
     Logger.log(this.LOG_TAG, "Start request createShop...");
 
     try {
@@ -31,6 +31,32 @@ export default abstract class StoresManager {
       return createShopResponse;
     } catch (error) {
       Logger.error("StoresManager", "Error creating Shop", error);
+      return Promise.reject(error);
+    }
+  }
+
+  public static async updateStore(storeData: IStore) {
+    Logger.log(this.LOG_TAG, "Start request updateShop...");
+
+    try {
+      const updateShopResponse = await StoresService.updateStore(storeData);
+      Logger.log(this.LOG_TAG, "Shop updated successfully", updateShopResponse);
+      return updateShopResponse;
+    } catch (error) {
+      Logger.error("StoresManager", "Error updating Shop", error);
+      return Promise.reject(error);
+    }
+  }
+
+  public static async deleteStore(storeId: string) {
+    Logger.log(this.LOG_TAG, "Start request deleteShop...");
+
+    try {
+      const deleteShopResponse = await StoresService.deleteStore(storeId);
+      Logger.log(this.LOG_TAG, "Shop deleted successfully", deleteShopResponse);
+      return deleteShopResponse;
+    } catch (error) {
+      Logger.error("StoresManager", "Error deleting Shop", error);
       return Promise.reject(error);
     }
   }
