@@ -15,6 +15,7 @@ export interface IUser {
 }
 
 export interface IStore {
+  id?: string;
   shopReference: string;
   accessToken: string;
   status: boolean;

@@ -1,7 +1,9 @@
-import { Button, Chip, Grid } from "@mui/material";
-import React, { useState } from "react";
+import { Delete, Edit } from "@mui/icons-material";
+import { Button, Chip, Grid, IconButton } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import StoresManager from "../../../Managers/StoresManager";
 import { IStore } from "../../../models";
 import CustomCardComponent from "../../components/Generic/CustomCard/CustomCard";
 import TableWrapper from "../../components/Tables/TableWrapper";
@@ -10,6 +12,18 @@ import { ButtonsControl } from "../MpesaConfig/Style";
 const Stores: React.FC = () => {
   const { t } = useTranslation();
   const [storeList, setStoreList] = useState<IStore[]>([]);
+  const [fetchLoading, setFetchLoading] = useState(true);
+
+  useEffect(() => {
+    setFetchLoading(true);
+    StoresManager.getStores()
+      .then((stores: IStore[]) => {
+        setStoreList(stores);
+      })
+      .finally(() => {
+        setFetchLoading(false);
+      });
+  }, []);
 
   const openCreateStoreModal = () => {};
 
@@ -22,13 +36,35 @@ const Stores: React.FC = () => {
     return <Chip label="Desactivo" color="error" size="small" />;
   };
 
+  const openEditModal = (store: IStore) => {
+    console.log("Edit store", store);
+  };
+
+  const openDeleteModal = (store: IStore) => {
+    console.log("Delete store", store);
+  };
+
+  const getActionButtons = (store: IStore) => {
+    return (
+      <div>
+        <IconButton aria-label="delete" onClick={() => openDeleteModal(store)}>
+          <Delete />
+        </IconButton>
+
+        <IconButton aria-label="edit" onClick={() => openEditModal(store)}>
+          <Edit />
+        </IconButton>
+      </div>
+    );
+  };
+
   const createStoresTableRows = (stores: IStore[]) => {
     if (!stores.length) {
       return [];
     }
 
     return stores.map((store: IStore) => {
-      return [store.shopReference, store.accessToken, getStatusBadge(store.status)];
+      return [store.shopReference, store.accessToken, getStatusBadge(store.status), getActionButtons(store)];
     });
   };
 
@@ -36,7 +72,7 @@ const Stores: React.FC = () => {
     <Grid container rowSpacing={3}>
       <Grid item xs={12} className="buttons-control">
         <ButtonsControl>
-          <Button className="save-button" variant="contained" color="primary" disableElevation onClick={() => openCreateStoreModal()}>
+          <Button disabled={fetchLoading} className="save-button" variant="contained" color="primary" disableElevation onClick={() => openCreateStoreModal()}>
             {t("generics.buttons.new")}
           </Button>
         </ButtonsControl>
