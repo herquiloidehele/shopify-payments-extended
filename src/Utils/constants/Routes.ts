@@ -10,6 +10,7 @@ export const APP_ROUTES = {
     MPESA: "/home/mpesa-config",
     SETTINGS: "/home/account-settings",
     USERS: "/home/users",
+    STORES: "/home/stores",
     BIM: "/home/bim-config",
     PONTO24: "/home/ponto-24-config",
   },

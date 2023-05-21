@@ -36,6 +36,7 @@
         "payments": "Pagamentos",
         "settings": "Definições",
         "users": "Users",
+        "stores": "Lojas",
         "mpesa-config": "Mpesa",
         "bim-config": "BIM",
         "ponto-24-config": "Ponto 24"
@@ -91,6 +92,21 @@
         "message": "Ao remover este utilizador, todos os dados associados a ele serão perdidos.",
         "cancel": "Cancelar",
         "remove": "Remover"
+      }
+    },
+    "stores": {
+      "title": "Lojas",
+      "removeModal": {
+        "title": "Remover Loja",
+        "message": "Tem certeza que deseja remover esta loja?",
+        "cancel": "Cancelar",
+        "remove": "Remover"
+      },
+      "table": {
+        "name": "Dominio da loja",
+        "status": "Estado",
+        "accessToken": "Access Token",
+        "actions": "Acções"
       }
     },
     "mpesaConfig": {

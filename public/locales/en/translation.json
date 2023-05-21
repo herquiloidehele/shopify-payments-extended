@@ -36,6 +36,7 @@
         "payments": "Payments",
         "settings": "Settings",
         "users": "Users",
+        "stores": "Stores",
         "mpesa-config": "M-Pesa",
         "bim-config": "BIM",
         "ponto-24-config": "Ponto 24"
@@ -90,6 +91,21 @@
         "message": "By removing this user, all data associated with it will be lost.",
         "cancel": "Cancel",
         "remove": "Remove"
+      }
+    },
+    "stores": {
+        "title": "Stores",
+        "removeModal": {
+            "title": "Remove store",
+            "message": "Are you sure you want to remove this store?",
+            "cancel": "Cancel",
+            "remove": "Remove"
+        },
+      "table": {
+        "name": "Store Domain",
+        "status": "Status",
+        "accessToken": "Access Token",
+        "actions": "Actions"
       }
     },
     "mpesaConfig": {

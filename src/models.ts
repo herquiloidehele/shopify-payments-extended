@@ -14,6 +14,12 @@ export interface IUser {
   password?: string;
 }
 
+export interface IStore {
+  shopReference: string;
+  accessToken: string;
+  status: boolean;
+}
+
 export enum USER_ROLES {
   ADMIN = "ADMIN",
   STORE_OWNER = "STORE_OWNER",

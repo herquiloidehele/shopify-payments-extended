@@ -1,4 +1,4 @@
-import { HomeOutlined, ManageAccountsOutlined, PaymentOutlined, PeopleOutlineOutlined, SettingsOutlined } from "@mui/icons-material";
+import { HomeOutlined, ManageAccountsOutlined, PaymentOutlined, PeopleOutlineOutlined, SettingsOutlined, StoreOutlined } from "@mui/icons-material";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
@@ -36,6 +36,15 @@ export const useMenuItems = () => {
       icon: <PeopleOutlineOutlined />,
       onClick: () => {
         navigate(APP_ROUTES.PRIVATE.USERS);
+      },
+    },
+    {
+      key: APP_ROUTES.PRIVATE.STORES,
+      title: t("pages.home.menu.stores"),
+      permissions: [USER_ROLES.ADMIN],
+      icon: <StoreOutlined />,
+      onClick: () => {
+        navigate(APP_ROUTES.PRIVATE.STORES);
       },
     },
     {
