@@ -8,13 +8,16 @@ import { IStore } from "../../../models";
 import CustomCardComponent from "../../components/Generic/CustomCard/CustomCard";
 import TableWrapper from "../../components/Tables/TableWrapper";
 import { ButtonsControl } from "../MpesaConfig/Style";
+import CreateStoreModal from "./CreateStoreModal";
 
 const Stores: React.FC = () => {
   const { t } = useTranslation();
   const [storeList, setStoreList] = useState<IStore[]>([]);
   const [fetchLoading, setFetchLoading] = useState(true);
+  const [isCreateModalOpen, setIsCreateModalOpen] = React.useState(false);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = React.useState(false);
 
-  useEffect(() => {
+  const fetchStores = () => {
     setFetchLoading(true);
     StoresManager.getStores()
       .then((stores: IStore[]) => {
@@ -23,9 +26,24 @@ const Stores: React.FC = () => {
       .finally(() => {
         setFetchLoading(false);
       });
+  };
+
+  useEffect(() => {
+    fetchStores();
   }, []);
 
-  const openCreateStoreModal = () => {};
+  const openCreateStoreModal = () => {
+    setIsCreateModalOpen(!isCreateModalOpen);
+  };
+
+  const handleCloseModal = (isSaved: boolean) => {
+    if (isSaved) {
+      fetchStores();
+    }
+
+    setIsCreateModalOpen(false);
+    setIsUpdateModalOpen(false);
+  };
 
   const storesTableRows = [t("pages.stores.table.name"), t("pages.stores.table.accessToken"), t("pages.stores.table.status"), t("pages.stores.table.actions")];
 
@@ -71,6 +89,7 @@ const Stores: React.FC = () => {
   return (
     <Grid container rowSpacing={3}>
       <Grid item xs={12} className="buttons-control">
+        {isCreateModalOpen && <CreateStoreModal isOpen={isCreateModalOpen} onClose={handleCloseModal} />}
         <ButtonsControl>
           <Button disabled={fetchLoading} className="save-button" variant="contained" color="primary" disableElevation onClick={() => openCreateStoreModal()}>
             {t("generics.buttons.new")}

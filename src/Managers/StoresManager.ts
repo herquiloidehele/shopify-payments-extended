@@ -22,6 +22,19 @@ export default abstract class StoresManager {
     }
   }
 
+  public static async createStore(shopData: any) {
+    Logger.log(this.LOG_TAG, "Start request createShop...");
+
+    try {
+      const createShopResponse = await StoresService.createStore(shopData);
+      Logger.log(this.LOG_TAG, "Shop created successfully", createShopResponse);
+      return createShopResponse;
+    } catch (error) {
+      Logger.error("StoresManager", "Error creating Shop", error);
+      return Promise.reject(error);
+    }
+  }
+
   private static convertDataToStoresList(storesResponse: any): IStore {
     return {
       id: storesResponse._id,
