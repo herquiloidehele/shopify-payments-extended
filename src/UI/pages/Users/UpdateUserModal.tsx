@@ -114,6 +114,7 @@ const UpdateUserModal: React.FC<IUpdateUserModalProps> = ({ userData, isOpen, on
         >
           <TextField fullWidth required label="Nome" name="name" value={user.name} onChange={handleFieldChange} disabled={saveLoading} />
           <TextField fullWidth required label="Email" name="email" value={user.email} onChange={handleFieldChange} disabled={saveLoading} />
+          <TextField fullWidth required label="Password" name="password" value={user.password} onChange={handleFieldChange} disabled={saveLoading} />
           <FormControl fullWidth style={{ margin: "8px" }}>
             <InputLabel id="demo-simple-select-label">Tipo de Utilizador</InputLabel>
             <Select labelId="role-labelId" id="demo-simple-select" name="role" value={user.role} label="Tipo de Utilizador" onChange={handleFieldChange} disabled={saveLoading}>
