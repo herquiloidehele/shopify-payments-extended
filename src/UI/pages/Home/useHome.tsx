@@ -1,5 +1,6 @@
 import { Chip } from "@mui/material";
 import { ApexOptions } from "apexcharts";
+import dayjs from "dayjs";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -81,7 +82,7 @@ const useHome = () => {
         order: `${data.orderNumber}`,
         customer: <AvatarWithName name={data.customer} />,
         amount: <MoneyStye mode="SUCCESS">{data.price} MZN</MoneyStye>,
-        date: new Date(data.createdAt).toString().slice(0, 15),
+        date: dayjs(data.createdAt).format("DD/MM/YYYY HH:mm"),
         status: getBadge(data.status),
       };
     });
