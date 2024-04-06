@@ -10,8 +10,10 @@ export const HeaderWrapper = styled.div`
   background-color: white;
   padding: ${pixel2Rem(20)} ${pixel2Rem(40)};
   margin-bottom: ${pixel2Rem(30)};
-  width: 100%;
+  width: 96%;
   box-shadow: ${(props) => props.theme.box_shadows.header};
+  position: fixed;
+  z-index: 100;
 
   .menu-icon,
   .notification-icon {

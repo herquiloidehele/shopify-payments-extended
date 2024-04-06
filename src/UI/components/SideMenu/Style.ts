@@ -17,7 +17,7 @@ export const SideMenuWrapper = styled.div<ISideMenuStyle>`
   overflow: hidden;
   transition: all 0.5s ease-in-out;
   position: fixed;
-  z-index: 2;
+  z-index: 200;
 
   .short-logo {
     width: ${pixel2Rem(40)};
