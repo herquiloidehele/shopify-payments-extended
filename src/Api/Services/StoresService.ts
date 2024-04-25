@@ -1,4 +1,4 @@
-import { IStore } from "../../models";
+import { IShop } from "../../models";
 import Logger from "../../Utils/Logger";
 import HttpClient from "../HttpClient";
 
@@ -26,7 +26,7 @@ export default abstract class StoresService {
     });
   }
 
-  public static async createStore(shopData: IStore): Promise<any> {
+  public static async createStore(shopData: IShop): Promise<any> {
     Logger.log(this.LOG_TAG, "Start request createShop");
 
     return new Promise(async (resolve, reject) => {
@@ -53,7 +53,7 @@ export default abstract class StoresService {
     });
   }
 
-  public static async updateStore(storeData: IStore): Promise<any> {
+  public static async updateStore(storeData: IShop): Promise<any> {
     Logger.log(this.LOG_TAG, "Start request updateShop");
 
     try {

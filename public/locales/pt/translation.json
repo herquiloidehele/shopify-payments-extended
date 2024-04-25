@@ -24,6 +24,24 @@
         "authenticationFailed": "Credenciais Inválidas"
       }
     },
+    "subscriptions": {
+      "title": "Subscrições",
+      "table": {
+        "store": "Loja",
+        "packageName": "Pacote",
+        "duration": "Duração",
+        "validUntil": "Válido até",
+        "status": "Estado",
+        "createdAt": "Data de criação",
+        "actions": "Acções"
+      },
+      "removeModal": {
+        "title": "Remover Subscrição",
+        "message": "Tem certeza que deseja remover esta subscrição?",
+        "cancel": "Cancelar",
+        "remove": "Remover"
+      }
+    },
     "home": {
       "header": {
         "search": "Pesquisar",
@@ -37,6 +55,7 @@
         "settings": "Definições",
         "users": "Users",
         "stores": "Lojas",
+        "subscriptions": "Subscrições",
         "mpesa-config": "Mpesa",
         "bim-config": "BIM",
         "ponto-24-config": "Ponto 24"

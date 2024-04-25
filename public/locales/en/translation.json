@@ -24,6 +24,24 @@
         "authenticationFailed": "Invalid Credentials"
       }
     },
+    "subscriptions": {
+      "title": "Subscriptions",
+      "table": {
+        "store": "Store",
+        "packageName": "Package Name",
+        "duration": "Duration",
+        "validUntil": "Valid Until",
+        "status": "Status",
+        "createdAt": "Created At",
+        "actions": "Actions"
+      },
+      "removeModal": {
+        "title": "Remove Subscription",
+        "message": "By removing this Subscription, all data associated with it will be lost.",
+        "cancel": "Cancel",
+        "remove": "Remove"
+      }
+    },
     "home": {
       "header": {
         "search": "Search",
@@ -37,6 +55,7 @@
         "settings": "Settings",
         "users": "Users",
         "stores": "Stores",
+        "subscriptions": "Subscriptions",
         "mpesa-config": "M-Pesa",
         "bim-config": "BIM",
         "ponto-24-config": "Ponto 24"

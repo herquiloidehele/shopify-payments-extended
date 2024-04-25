@@ -8,6 +8,7 @@ import Login from "../UI/pages/Login/Login";
 import MpesaConfigPage from "../UI/pages/MpesaConfig/MpesaConfigPage";
 import PaymentsPage from "../UI/pages/Payments/PaymentsPage";
 import Stores from "../UI/pages/Stores/Stores";
+import SubscriptionsPage from "../UI/pages/Subscriptions/SubscriptionsPage";
 import Users from "../UI/pages/Users/Users";
 import { APP_ROUTES } from "../Utils/constants/Routes";
 import PrivateRoute from "./PrivateRoute";
@@ -30,6 +31,7 @@ export default function RoutesWrapper() {
             <Route path={APP_ROUTES.PRIVATE.SETTINGS} element={<AccountSettings />} />
             <Route path={APP_ROUTES.PRIVATE.USERS} element={<Users />} />
             <Route path={APP_ROUTES.PRIVATE.STORES} element={<Stores />} />
+            <Route path={APP_ROUTES.PRIVATE.SUBSCRIPTIONS} element={<SubscriptionsPage />} />
             <Route path={APP_ROUTES.PRIVATE.MPESA} element={<MpesaConfigPage />} />
             <Route path={APP_ROUTES.PRIVATE.BIM} element={<h1>Configurações BIM</h1>} />
             <Route path={APP_ROUTES.PRIVATE.PONTO24} element={<h1>Configurações Ponto 24</h1>} />

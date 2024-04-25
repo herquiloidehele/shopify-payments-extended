@@ -1,3 +1,5 @@
+import { Dayjs } from "dayjs";
+
 import EN_Icon from "./UI/assets/icon/ic_flag_en.svg";
 import PT_Icon from "./UI/assets/img/pt-flag.png";
 import { IDropdownItem } from "./UI/components/Dropdown/Dropdown";
@@ -14,11 +16,24 @@ export interface IUser {
   password?: string;
 }
 
-export interface IStore {
+export interface IShop {
   id?: string;
   shopReference: string;
   accessToken: string;
   status: boolean;
+}
+
+export interface ISubscription {
+  id?: string;
+  shop: Partial<IShop>;
+  package: Partial<IPackage>;
+  validUntil: Dayjs;
+  created_at: Dayjs;
+}
+
+export interface INewSubscription {
+  shopId: string;
+  packageId: string;
 }
 
 export enum USER_ROLES {
@@ -68,5 +83,14 @@ const LANGUAGUES: IDropdownItem[] = [
     icon: EN_Icon,
   },
 ];
+
+export interface IPackage {
+  id?: string;
+  name: string;
+  price: number;
+  monthsDuration: number;
+  description?: string;
+  image?: string;
+}
 
 export { LANGUAGUES };

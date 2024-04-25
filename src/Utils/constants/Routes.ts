@@ -11,6 +11,7 @@ export const APP_ROUTES = {
     SETTINGS: "/home/account-settings",
     USERS: "/home/users",
     STORES: "/home/stores",
+    SUBSCRIPTIONS: "/home/subscriptions",
     BIM: "/home/bim-config",
     PONTO24: "/home/ponto-24-config",
   },
@@ -27,5 +28,13 @@ export const API_ROUTES = {
     CREATE: "/auth/register",
     DELETE: (userId: string) => `/auth/delete-user/${userId}`,
     EDIT: "/auth/edit-user",
+  },
+  PACKAGES: {
+    LIST: "/packages",
+  },
+  SUBSCRIPTIONS: {
+    LIST: "/subscriptions",
+    CREATE: "/subscriptions",
+    DELETE: (subscriptionId: string) => `/subscriptions/${subscriptionId}`,
   },
 };

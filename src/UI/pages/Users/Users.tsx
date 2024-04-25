@@ -69,13 +69,11 @@ const Users: React.FC = () => {
   }, [selectedUser]);
 
   const handleEditItem = (user: IUser) => {
-    console.log("Set Selected", user);
     setSelectedUser(user);
     setIsUpdateModalOpen(!isUpdateModalOpen);
   };
 
   const openRemoveConfirmationModal = (user: IUser) => {
-    console.log("Set Selected", user);
     setSelectedUser(user);
     setIsRemovePopupOpen(true);
   };
@@ -115,8 +113,8 @@ const Users: React.FC = () => {
 
   const initRemoveModalData = useCallback(() => {
     setRemoveConfirmationModal({
-      title: t("pages.users.removeUserModal.title"),
-      message: t("pages.users.removeUserModal.message"),
+      title: t("pages.users.removeModal.title"),
+      message: t("pages.users.removeModal.message"),
       isOpen: false,
       onClose: () => {
         setIsRemovePopupOpen(false);

@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import StoresManager from "../../../Managers/StoresManager";
-import { IStore } from "../../../models";
+import { IShop } from "../../../models";
 import CustomCardComponent from "../../components/Generic/CustomCard/CustomCard";
 import ConfirmModal from "../../components/Modals/ConfirmModal";
 import TableWrapper from "../../components/Tables/TableWrapper";
@@ -14,18 +14,18 @@ import UpdateStoreModal from "./UpdateStoreModal";
 
 const Stores: React.FC = () => {
   const { t } = useTranslation();
-  const [storeList, setStoreList] = useState<IStore[]>([]);
+  const [storeList, setStoreList] = useState<IShop[]>([]);
   const [fetchLoading, setFetchLoading] = useState(true);
   const [isCreateModalOpen, setIsCreateModalOpen] = React.useState(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = React.useState(false);
-  const [selectedStore, setSelectedStore] = React.useState<IStore>();
+  const [selectedStore, setSelectedStore] = React.useState<IShop>();
   const [isRemovePopupOpen, setIsRemovePopupOpen] = useState(false);
   const [removeConfirmationModal, setRemoveConfirmationModal] = React.useState<any>({});
 
   const fetchStores = () => {
     setFetchLoading(true);
     StoresManager.getStores()
-      .then((stores: IStore[]) => {
+      .then((stores: IShop[]) => {
         setStoreList(stores);
       })
       .finally(() => {
@@ -71,7 +71,7 @@ const Stores: React.FC = () => {
     return <Chip label="Desactivo" color="error" size="small" />;
   };
 
-  const openEditModal = (store: IStore) => {
+  const openEditModal = (store: IShop) => {
     setSelectedStore(store);
     setIsUpdateModalOpen(!isUpdateModalOpen);
   };
@@ -90,12 +90,12 @@ const Stores: React.FC = () => {
     });
   }, [selectedStore]);
 
-  const openDeleteModal = (store: IStore) => {
+  const openDeleteModal = (store: IShop) => {
     setSelectedStore(store);
     setIsRemovePopupOpen(true);
   };
 
-  const getActionButtons = (store: IStore) => {
+  const getActionButtons = (store: IShop) => {
     return (
       <div>
         <IconButton aria-label="delete" onClick={() => openDeleteModal(store)}>
@@ -109,12 +109,12 @@ const Stores: React.FC = () => {
     );
   };
 
-  const createStoresTableRows = (stores: IStore[]) => {
+  const createStoresTableRows = (stores: IShop[]) => {
     if (!stores.length) {
       return [];
     }
 
-    return stores.map((store: IStore) => {
+    return stores.map((store: IShop) => {
       return [store.shopReference, store.accessToken, getStatusBadge(store.status), getActionButtons(store)];
     });
   };
@@ -123,7 +123,7 @@ const Stores: React.FC = () => {
     <Grid container rowSpacing={3}>
       <Grid item xs={12} className="buttons-control">
         {isCreateModalOpen && <CreateStoreModal isOpen={isCreateModalOpen} onClose={handleCloseModal} />}
-        {isUpdateModalOpen && <UpdateStoreModal isOpen={isUpdateModalOpen} onClose={handleCloseModal} storeData={selectedStore as IStore} />}
+        {isUpdateModalOpen && <UpdateStoreModal isOpen={isUpdateModalOpen} onClose={handleCloseModal} storeData={selectedStore as IShop} />}
         <ConfirmModal {...removeConfirmationModal} isOpen={isRemovePopupOpen} onAccept={handleDeleteItem} />
         <ButtonsControl>
           <Button disabled={fetchLoading} className="save-button" variant="contained" color="primary" disableElevation onClick={() => openCreateStoreModal()}>

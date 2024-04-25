@@ -2,7 +2,7 @@ import { Box, InputLabel, Snackbar, Switch, TextField } from "@mui/material";
 import React, { useCallback, useEffect, useState } from "react";
 
 import StoresManager from "../../../Managers/StoresManager";
-import { IStore } from "../../../models";
+import { IShop } from "../../../models";
 import ModalWrapper from "../../components/Modals/ModalWrapper";
 
 interface ICreateUserModalProps {
@@ -14,7 +14,7 @@ const CreateStoreModal: React.FC<ICreateUserModalProps> = ({ isOpen, onClose }) 
   const [saveLoading, setSaveLoading] = React.useState(false);
   const [modalData, setModalData] = React.useState<any | undefined>();
   const label = { inputProps: { "aria-label": "Modal Create Store" } };
-  const [store, setStore] = React.useState<IStore>({} as IStore);
+  const [store, setStore] = React.useState<IShop>({} as IShop);
   const [showPopup, setShowPopup] = React.useState(false);
   const [toastMeessage, setToastMessage] = useState("");
 
