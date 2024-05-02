@@ -68,6 +68,8 @@ export default abstract class StoresManager {
       accessToken: storesResponse.accessToken,
       status: storesResponse.active,
       shopReference: storesResponse.shop,
+      hasOwnPaymentSettings: storesResponse.hasOwnPaymentSettings,
+      withdrawPhoneNumber: storesResponse.withdrawPhoneNumber,
     };
   }
 }

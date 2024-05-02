@@ -14,7 +14,6 @@ export interface IUser {
   createdAt: Date;
   status: boolean;
   password?: string;
-  hasOwnPaymentSettings: boolean;
 }
 
 export interface IShop {
@@ -22,6 +21,8 @@ export interface IShop {
   shopReference: string;
   accessToken: string;
   status: boolean;
+  hasOwnPaymentSettings: boolean;
+  withdrawPhoneNumber: string;
 }
 
 export interface ISubscription {

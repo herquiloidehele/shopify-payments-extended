@@ -46,13 +46,6 @@ const useHome = () => {
     return <Chip label="Desactivo" color="error" size="small" />;
   };
 
-  const getMpesaAPIBadge = (status: boolean) => {
-    if (status) {
-      return <Chip label="SIM" color="primary" size="small" />;
-    }
-    return <Chip label="Não" color="error" size="small" />;
-  };
-
   const paymentsTableColumns = [
     t("pages.home.cardPayments.table.order"),
     t("pages.home.cardPayments.table.customer"),
@@ -66,7 +59,6 @@ const useHome = () => {
     t("pages.home.cardUsers.table.role"),
     t("pages.home.cardUsers.table.shop"),
     t("pages.home.cardUsers.table.status"),
-    t("pages.home.cardUsers.table.hasAPI"),
     t("pages.home.cardUsers.table.email"),
     t("pages.home.cardUsers.table.createdAt"),
   ];
@@ -77,15 +69,7 @@ const useHome = () => {
     }
 
     return users.map((user: IUser) => {
-      return [
-        <AvatarWithName name={`${user.name}`} image="" />,
-        user.role,
-        user.storeId,
-        getUserBadge(user.status),
-        getMpesaAPIBadge(user.hasOwnPaymentSettings),
-        user.email,
-        user.createdAt.toString().slice(0, 15),
-      ];
+      return [<AvatarWithName name={`${user.name}`} image="" />, user.role, user.storeId, getUserBadge(user.status), user.email, user.createdAt.toString().slice(0, 15)];
     });
   };
 
@@ -105,7 +89,7 @@ const useHome = () => {
     });
   }
 
-  return { usersStatisticsData, createUsersTableRows, usersTableColumns, paysStatisticsData, paymentReport, createPaymentData, paymentsTableColumns, getUserBadge, getMpesaAPIBadge };
+  return { usersStatisticsData, createUsersTableRows, usersTableColumns, paysStatisticsData, paymentReport, createPaymentData, paymentsTableColumns, getUserBadge };
 };
 
 export default useHome;

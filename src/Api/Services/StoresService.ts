@@ -1,3 +1,4 @@
+import { IEditShopRequest, INewShopRequest } from "../../ModelDaos";
 import { IShop } from "../../models";
 import Logger from "../../Utils/Logger";
 import HttpClient from "../HttpClient";
@@ -27,14 +28,16 @@ export default abstract class StoresService {
   }
 
   public static async createStore(shopData: IShop): Promise<any> {
-    Logger.log(this.LOG_TAG, "Start request createShop");
+    Logger.log(this.LOG_TAG, "Start request createShop", [shopData]);
 
     return new Promise(async (resolve, reject) => {
       try {
-        const requestData = {
+        const requestData: INewShopRequest = {
           shop: shopData.shopReference,
           active: true,
           accessToken: shopData.accessToken,
+          withdrawPhoneNumber: shopData.withdrawPhoneNumber,
+          hasOwnPaymentSettings: !!shopData.hasOwnPaymentSettings,
         };
 
         const axiosResponse = await HttpClient.post(`shops`, requestData);
@@ -54,13 +57,15 @@ export default abstract class StoresService {
   }
 
   public static async updateStore(storeData: IShop): Promise<any> {
-    Logger.log(this.LOG_TAG, "Start request updateShop");
+    Logger.log(this.LOG_TAG, "Start request updateShop", [storeData]);
 
     try {
-      const requestData = {
+      const requestData: IEditShopRequest = {
         shop: storeData.shopReference,
         active: storeData.status,
         accessToken: storeData.accessToken,
+        hasOwnPaymentSettings: !!storeData.hasOwnPaymentSettings,
+        withdrawPhoneNumber: storeData.withdrawPhoneNumber || "",
       };
 
       const axiosResponse = await HttpClient.put(`shops/${storeData.id}`, requestData);

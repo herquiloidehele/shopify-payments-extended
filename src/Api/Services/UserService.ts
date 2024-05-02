@@ -55,7 +55,6 @@ export default abstract class UserService {
           password: userData.password,
           role: userData.role,
           status: userData.status,
-          hasOwnPaymentSettings: userData.hasOwnPaymentSettings,
         };
 
         const axiosResponse: AxiosResponse = await HttpClient.put(API_ROUTES.USER.EDIT, rawData);

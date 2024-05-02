@@ -23,9 +23,14 @@ const UpdateStoreModal: React.FC<IUpdateUserModalProps> = ({ storeData, isOpen, 
     if (event.target) {
       if (event.target.name === "status") {
         setStore({ ...store, status: event.target.checked });
-      } else {
-        setStore({ ...store, [event.target.name]: event.target.value });
+        return;
       }
+      if (event.target.name === "hasOwnPaymentSettings") {
+        setStore({ ...store, hasOwnPaymentSettings: event.target.checked });
+        return;
+      }
+
+      setStore({ ...store, [event.target.name]: event.target.value });
     }
   };
 
@@ -74,6 +79,8 @@ const UpdateStoreModal: React.FC<IUpdateUserModalProps> = ({ storeData, isOpen, 
       status: true,
       shopReference: "",
       accessToken: "",
+      withdrawPhoneNumber: "",
+      hasOwnPaymentSettings: false,
     });
   };
 
@@ -109,6 +116,23 @@ const UpdateStoreModal: React.FC<IUpdateUserModalProps> = ({ storeData, isOpen, 
         >
           <TextField fullWidth required label="Dominio da Loja Shopify" name="shopReference" value={store.shopReference} onChange={handleFieldChange} disabled={saveLoading} />
           <TextField fullWidth required label="Access Token" name="accessToken" value={store.accessToken} onChange={handleFieldChange} disabled={saveLoading} />
+
+          <div style={{ margin: "8px" }}>
+            <InputLabel id="user-status">Possui API Mpesa?</InputLabel>
+            <Switch
+              id="hasOwnPaymentSettings"
+              name="hasOwnPaymentSettings"
+              style={{ width: "100%" }}
+              checked={store.hasOwnPaymentSettings}
+              onChange={handleFieldChange}
+              {...label}
+              disabled={saveLoading}
+            />
+          </div>
+
+          {!store.hasOwnPaymentSettings && (
+            <TextField fullWidth required label="Número Mpesa para Levantamento" name="withdrawPhoneNumber" value={store.withdrawPhoneNumber} onChange={handleFieldChange} disabled={saveLoading} />
+          )}
 
           <div style={{ margin: "8px" }}>
             <InputLabel id="user-status">Estado</InputLabel>

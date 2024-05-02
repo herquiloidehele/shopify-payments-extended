@@ -97,7 +97,6 @@
           "createdAt": "Data",
           "role": "Tipo de utilizador",
           "status": "Estado",
-          "hasAPI": "Tem Mpesa API",
           "actions": "Acções"
         }
       }
@@ -126,6 +125,7 @@
         "name": "Dominio da loja",
         "status": "Estado",
         "accessToken": "Access Token",
+        "hasAPI": "Tem Mpesa API",
         "actions": "Acções"
       }
     },

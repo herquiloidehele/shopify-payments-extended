@@ -95,7 +95,6 @@
           "shop": "Shop",
           "email": "Email",
           "createdAt": "Date",
-          "hasAPI": "Has Mpesa API?",
           "role": "Type of user",
           "status": "State"
         }
@@ -125,6 +124,7 @@
         "name": "Store Domain",
         "status": "Status",
         "accessToken": "Access Token",
+        "hasAPI": "Has Mpesa API?",
         "actions": "Actions"
       }
     },

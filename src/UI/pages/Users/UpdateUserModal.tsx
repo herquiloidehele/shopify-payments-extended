@@ -1,5 +1,5 @@
 import { Box, FormControl, InputLabel, MenuItem, Select, Snackbar, Switch, TextField } from "@mui/material";
-import React, { Fragment, useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import UserService from "../../../Api/Services/UserService";
 import { IUser, USER_ROLES } from "../../../models";
@@ -23,9 +23,6 @@ const UpdateUserModal: React.FC<IUpdateUserModalProps> = ({ userData, isOpen, on
     if (event.target) {
       if (event.target.name === "status") {
         setUser({ ...user, status: event.target.checked });
-      }
-      if (event.target.name === "hasOwnPaymentSettings") {
-        setUser({ ...user, hasOwnPaymentSettings: event.target.checked });
       } else {
         setUser({ ...user, [event.target.name]: event.target.value });
       }
@@ -82,7 +79,6 @@ const UpdateUserModal: React.FC<IUpdateUserModalProps> = ({ userData, isOpen, on
       status: true,
       token: "",
       email: "",
-      hasOwnPaymentSettings: false,
     });
   };
 
@@ -127,21 +123,7 @@ const UpdateUserModal: React.FC<IUpdateUserModalProps> = ({ userData, isOpen, on
             </Select>
           </FormControl>
           {user.role === USER_ROLES.STORE_OWNER && (
-            <>
-              <TextField fullWidth required label="Domínio da loja Shopify" name="storeId" value={user.storeId} onChange={handleFieldChange} disabled={saveLoading} />
-              <div style={{ margin: "8px" }}>
-                <InputLabel id="user-status">Possui API Mpesa?</InputLabel>
-                <Switch
-                  id="payment-settings"
-                  name="hasOwnPaymentSettings"
-                  style={{ width: "100%" }}
-                  checked={user.hasOwnPaymentSettings}
-                  onChange={handleFieldChange}
-                  {...label}
-                  disabled={saveLoading}
-                />
-              </div>
-            </>
+            <TextField fullWidth required label="Domínio da loja Shopify" name="storeId" value={user.storeId} onChange={handleFieldChange} disabled={saveLoading} />
           )}
 
           <div style={{ margin: "8px" }}>

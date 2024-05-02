@@ -13,6 +13,8 @@ export interface IShopResponse {
   shop: string;
   active: boolean;
   accessToken: string;
+  hasOwnPaymentSettings: boolean;
+  withdrawPhoneNumber: string;
 }
 
 export interface ISubscriptionResponse {
@@ -21,4 +23,20 @@ export interface ISubscriptionResponse {
   package: IPackageResponse;
   validUntil: string;
   created_at: string;
+}
+
+export type INewShopRequest = {
+  shop: string;
+  active: boolean;
+  accessToken: string;
+  withdrawPhoneNumber: string;
+  hasOwnPaymentSettings?: boolean;
+};
+
+export interface IEditShopRequest {
+  shop: string;
+  active: boolean;
+  accessToken: string;
+  withdrawPhoneNumber: string;
+  hasOwnPaymentSettings: boolean;
 }
