@@ -6,6 +6,7 @@ import PackageManager from "../../../Managers/PackageManager";
 import StoresManager from "../../../Managers/StoresManager";
 import SubscriptionManager from "../../../Managers/SubscriptionManager";
 import { INewSubscription } from "../../../models";
+import { formatCurrency } from "../../../Utils/functions/Ui";
 import ModalWrapper from "../../components/Modals/ModalWrapper";
 
 interface ICreateSubscriptionModalProps {
@@ -116,7 +117,7 @@ const CreateSubscriptionModal: React.FC<ICreateSubscriptionModalProps> = ({ isOp
               <Select labelId="role-labelId" id="demo-simple-select" name="packageId" value={subscription.packageId} label="Selecione o Pacote" onChange={handleFieldChange} disabled={saveLoading}>
                 {packages.map((packageItem) => (
                   <MenuItem value={packageItem.id}>
-                    {packageItem.name} / {packageItem.monthsDuration} Mês - {packageItem.price} MZN
+                    {packageItem.name} / {packageItem.monthsDuration} Mês - {formatCurrency(packageItem.price)}
                   </MenuItem>
                 ))}
               </Select>

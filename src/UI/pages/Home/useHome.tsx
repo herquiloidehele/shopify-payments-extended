@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { IPayment, IUser } from "../../../models";
+import { formatCurrency } from "../../../Utils/functions/Ui";
 import AvatarWithName from "../../components/Generic/AvatarWithName";
 import { MoneyStye } from "../../components/Generic/Style";
 
@@ -97,7 +98,7 @@ const useHome = () => {
       return {
         order: `${data.orderNumber}`,
         customer: <AvatarWithName name={data.customer} />,
-        amount: <MoneyStye mode="SUCCESS">{data.price} MZN</MoneyStye>,
+        amount: <MoneyStye mode="SUCCESS">{formatCurrency(data.price)}</MoneyStye>,
         date: dayjs(data.createdAt).format("DD/MM/YYYY HH:mm"),
         status: getBadge(data.status),
       };

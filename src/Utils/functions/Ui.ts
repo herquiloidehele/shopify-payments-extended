@@ -6,10 +6,12 @@ export function getPassedTime(date: string | Date | number): string {
   return moment(date, "YYYY-MM-DD HH:mm:ss").fromNow();
 }
 
-export function formatCurrency(amount: number | string): string {
-  return new Intl.NumberFormat("pt-pt", {
+export function formatCurrency(amount?: number | string): string {
+  return new Intl.NumberFormat("pt-Pt", {
     style: "currency",
     currency: "MZN",
+    useGrouping: true,
     maximumFractionDigits: 2,
+    minimumFractionDigits: 0,
   }).format(Number(amount));
 }
