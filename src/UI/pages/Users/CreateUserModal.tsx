@@ -22,6 +22,9 @@ const CreateUserModal: React.FC<ICreateUserModalProps> = ({ isOpen, onClose }) =
     if (event.target) {
       if (event.target.name === "status") {
         setUser({ ...user, status: event.target.checked });
+      }
+      if (event.target.name === "hasOwnPaymentSettings") {
+        setUser({ ...user, hasOwnPaymentSettings: event.target.checked });
       } else {
         setUser({ ...user, [event.target.name]: event.target.value });
       }
@@ -34,7 +37,7 @@ const CreateUserModal: React.FC<ICreateUserModalProps> = ({ isOpen, onClose }) =
     setToastMessage("");
 
     UserService.createUser(user)
-      .then((response) => {
+      .then(() => {
         setToastMessage("Usuário criado com sucesso");
         setShowPopup(true);
         onClose(true);
@@ -79,6 +82,7 @@ const CreateUserModal: React.FC<ICreateUserModalProps> = ({ isOpen, onClose }) =
       token: "",
       password: "",
       email: "",
+      hasOwnPaymentSettings: false,
     });
   };
 
@@ -117,7 +121,13 @@ const CreateUserModal: React.FC<ICreateUserModalProps> = ({ isOpen, onClose }) =
             </Select>
           </FormControl>
           {user.role === USER_ROLES.STORE_OWNER && (
-            <TextField fullWidth required label="Domínio da loja Shopify" name="storeId" value={user.storeId} onChange={handleFieldChange} disabled={saveLoading} />
+            <>
+              <TextField fullWidth required label="Domínio da loja Shopify" name="storeId" value={user.storeId} onChange={handleFieldChange} disabled={saveLoading} />
+              <div style={{ margin: "8px" }}>
+                <InputLabel id="user-status">Possui API Mpesa?</InputLabel>
+                <Switch id="user-status" name="hasOwnPaymentSettings" style={{ width: "100%" }} checked={user.hasOwnPaymentSettings} onChange={handleFieldChange} {...label} disabled={saveLoading} />
+              </div>
+            </>
           )}
 
           <div style={{ margin: "8px" }}>

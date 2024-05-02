@@ -97,6 +97,7 @@
           "createdAt": "Data",
           "role": "Tipo de utilizador",
           "status": "Estado",
+          "hasAPI": "Tem Mpesa API",
           "actions": "Acções"
         }
       }

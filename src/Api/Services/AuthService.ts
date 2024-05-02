@@ -9,12 +9,23 @@ import HttpClient from "../HttpClient";
 
 export default abstract class AuthService {
   private static LOG_TAG = "AuthService";
+  private static user: IUser | null = null;
+
+  public static get getAuthUser(): IUser {
+    return this.user || ({} as IUser);
+  }
+
+  public static get isUserAdmin(): boolean {
+    return this.getAuthUser.role === USER_ROLES.ADMIN;
+  }
+
+  public static get isStoreOwner(): boolean {
+    return this.getAuthUser.role === USER_ROLES.STORE_OWNER;
+  }
 
   public static isUserAuthenticated(): boolean {
     return !!AccessToken.getToken();
   }
-
-  private static user: IUser | null = null;
 
   public static validateSession(): Promise<IUser> {
     Logger.log(this.LOG_TAG, "Start validate session");
@@ -127,6 +138,7 @@ export default abstract class AuthService {
       storeId: data.shop,
       createdAt: new Date(data.createdAt),
       status: data.status,
+      hasOwnPaymentSettings: data.hasOwnPaymentSettings,
     };
   }
 
@@ -135,17 +147,5 @@ export default abstract class AuthService {
       total: data.totalUsers === 1 ? `${data.totalUsers}` : `${data.totalUsers}`,
       users: data.usersList ? data.usersList.map((user: any) => this.convertLoginData(user)) : [],
     };
-  }
-
-  public static get getAuthUser(): IUser {
-    return this.user || ({} as IUser);
-  }
-
-  public static get isUserAdmin(): boolean {
-    return this.getAuthUser.role === USER_ROLES.ADMIN;
-  }
-
-  public static get isStoreOwner(): boolean {
-    return this.getAuthUser.role === USER_ROLES.STORE_OWNER;
   }
 }

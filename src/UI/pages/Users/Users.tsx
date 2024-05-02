@@ -19,7 +19,7 @@ const Users: React.FC = () => {
   const [usersReport, setUsersReport] = React.useState<IUserReport>({} as IUserReport);
   const [loading, setLoading] = React.useState(true);
   const [usersError, setUsersError] = React.useState(false);
-  const { usersTableColumns, getUserBadge } = useHome();
+  const { usersTableColumns, getUserBadge, getMpesaAPIBadge } = useHome();
   const [isCreateModalOpen, setIsCreateModalOpen] = React.useState(false);
   const [selectedUser, setSelectedUser] = React.useState<IUser>();
   const [removeConfirmationModal, setRemoveConfirmationModal] = React.useState<any>({});
@@ -98,7 +98,16 @@ const Users: React.FC = () => {
     }
 
     return users.map((user: IUser) => {
-      return [<AvatarWithName name={`${user.name}`} image="" />, user.role, user.storeId, getUserBadge(user.status), user.email, user.createdAt.toString().slice(0, 15), getActionButtons(user)];
+      return [
+        <AvatarWithName name={`${user.name}`} image="" />,
+        user.role,
+        user.storeId,
+        getUserBadge(user.status),
+        getMpesaAPIBadge(user.hasOwnPaymentSettings),
+        user.email,
+        user.createdAt.toString().slice(0, 15),
+        getActionButtons(user),
+      ];
     });
   };
 

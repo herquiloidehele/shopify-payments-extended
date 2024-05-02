@@ -95,6 +95,7 @@
           "shop": "Shop",
           "email": "Email",
           "createdAt": "Date",
+          "hasAPI": "Has Mpesa API?",
           "role": "Type of user",
           "status": "State"
         }
