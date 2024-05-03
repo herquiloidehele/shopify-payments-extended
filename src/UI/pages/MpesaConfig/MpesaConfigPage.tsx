@@ -11,6 +11,7 @@ const MpesaConfigPage = () => {
   const { t } = useTranslation();
 
   const userStoreId = AuthService.getAuthUser?.storeId || "";
+  const canChangeConfigs = !!AuthService.getAuthUser?.hasOwnPaymentSettings;
 
   const [settingsData, setSettingsData] = useState({
     apiKey: "",
@@ -92,9 +93,11 @@ const MpesaConfigPage = () => {
     <Grid container columnSpacing={5} rowSpacing={4}>
       <Grid item xs={12} className="buttons-control">
         <ButtonsControl>
-          <Button disabled={saveLoading || !formTouched} className="save-button" variant="contained" color="primary" disableElevation onClick={() => onSaveChanges()}>
-            {t("generics.buttons.save")}
-          </Button>
+          {canChangeConfigs && (
+            <Button disabled={saveLoading || !formTouched} className="save-button" variant="contained" color="primary" disableElevation onClick={() => onSaveChanges()}>
+              {t("generics.buttons.save")}
+            </Button>
+          )}
         </ButtonsControl>
       </Grid>
       <Grid item xs={7} style={{ height: "100%" }}>

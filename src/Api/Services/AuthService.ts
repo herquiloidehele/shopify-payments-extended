@@ -138,6 +138,7 @@ export default abstract class AuthService {
       storeId: data.shop,
       createdAt: new Date(data.createdAt),
       status: data.status,
+      hasOwnPaymentSettings: data.hasOwnPaymentSettings,
     };
   }
 

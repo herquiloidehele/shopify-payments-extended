@@ -76,8 +76,8 @@ export const useMenuItems = () => {
     },
   ];
 
-  const getMenuItemsByRole = (userRole: USER_ROLES) => {
-    return menuItems.filter((menuItem) => menuItem.permissions.includes(userRole));
+  const getMenuItemsByRole = (userRole: USER_ROLES, exludeMenus: string[]) => {
+    return menuItems.filter((menuItem) => menuItem.permissions.includes(userRole)).filter((menuItem) => !exludeMenus.includes(menuItem.key));
   };
 
   return { getMenuItemsByRole };

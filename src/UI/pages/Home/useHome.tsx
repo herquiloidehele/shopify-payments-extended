@@ -34,23 +34,23 @@ const useHome = () => {
 
   const getBadge = (status: boolean) => {
     if (status) {
-      return <Chip label="Pago" color="primary" size="small" />;
+      return <Chip label="Pago" color="primary" size="medium" style={{ color: "white" }} />;
     }
-    return <Chip label="Falhado" color="error" size="small" />;
+    return <Chip label="Falhado" color="error" size="medium" style={{ color: "white" }} />;
   };
 
   const getWithdrawBadge = (status: boolean) => {
     if (status) {
-      return <Chip label="Levantado" color="success" size="small" />;
+      return <Chip label="Levantado" color="primary" size="medium" style={{ color: "white" }} />;
     }
-    return <Chip label="Pendente" color="warning" size="small" />;
+    return <Chip label="Pendente" color="warning" size="medium" style={{ color: "white" }} />;
   };
 
   const getUserBadge = (status: boolean) => {
     if (status) {
-      return <Chip label="Activo" color="primary" size="small" />;
+      return <Chip label="Activo" color="primary" size="medium" style={{ color: "white" }} />;
     }
-    return <Chip label="Desactivo" color="error" size="small" />;
+    return <Chip label="Desactivo" color="error" size="medium" style={{ color: "white" }} />;
   };
 
   const paymentsTableColumns = [

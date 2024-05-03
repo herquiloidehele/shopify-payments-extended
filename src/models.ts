@@ -14,6 +14,7 @@ export interface IUser {
   createdAt: Date;
   status: boolean;
   password?: string;
+  hasOwnPaymentSettings?: boolean;
 }
 
 export interface IShop {

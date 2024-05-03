@@ -11,8 +11,9 @@ import { useMenuItems } from "./useMenuItems";
 const Dashboard: React.FC = () => {
   const [toggleMenu, setToggleMenu] = React.useState(true);
   const { getMenuItemsByRole } = useMenuItems();
+  const hidMenus = AuthService.getAuthUser?.hasOwnPaymentSettings ? [] : [APP_ROUTES.PRIVATE.MPESA];
 
-  const menuItems = getMenuItemsByRole(AuthService.getAuthUser.role);
+  const menuItems = getMenuItemsByRole(AuthService.getAuthUser?.role, hidMenus);
 
   return (
     <DashboardPageWrapper>
