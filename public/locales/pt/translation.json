@@ -85,7 +85,8 @@
           "customer": "Cliente",
           "amount": "Valor",
           "date": "Data",
-          "status": "Estado"
+          "status": "Estado",
+          "hasWithdrawed": "Estado de Levantamento"
         }
       },
       "cardUsers": {

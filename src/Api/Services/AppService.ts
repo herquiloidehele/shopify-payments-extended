@@ -101,6 +101,7 @@ export default abstract class AppService {
           status: payment.status,
           shop: payment.shop,
           createdAt: payment.created_at,
+          hasWithdrawed: payment.hasWithdrawed,
         };
       });
     }

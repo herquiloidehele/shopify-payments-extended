@@ -85,7 +85,8 @@
           "customer": "Customer",
           "amount": "Amount",
           "date": "Date",
-          "status": "State"
+          "status": "State",
+          "hasWithdrawed": "Withdraw status"
         }
       },
       "cardUsers": {

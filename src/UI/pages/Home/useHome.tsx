@@ -39,6 +39,13 @@ const useHome = () => {
     return <Chip label="Falhado" color="error" size="small" />;
   };
 
+  const getWithdrawBadge = (status: boolean) => {
+    if (status) {
+      return <Chip label="Levantado" color="success" size="small" />;
+    }
+    return <Chip label="Pendente" color="warning" size="small" />;
+  };
+
   const getUserBadge = (status: boolean) => {
     if (status) {
       return <Chip label="Activo" color="primary" size="small" />;
@@ -52,6 +59,7 @@ const useHome = () => {
     t("pages.home.cardPayments.table.amount"),
     t("pages.home.cardPayments.table.date"),
     t("pages.home.cardPayments.table.status"),
+    t("pages.home.cardPayments.table.hasWithdrawed"),
   ];
 
   const usersTableColumns = [
@@ -85,6 +93,7 @@ const useHome = () => {
         amount: <MoneyStye mode="SUCCESS">{formatCurrency(data.price)}</MoneyStye>,
         date: dayjs(data.createdAt).format("DD/MM/YYYY HH:mm"),
         status: getBadge(data.status),
+        hasWithdrawed: getWithdrawBadge(data.hasWithdrawed),
       };
     });
   }
