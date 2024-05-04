@@ -64,6 +64,7 @@ export interface IPayment {
   status: string;
   shop: string;
   createdAt: string;
+  hasWithdrawed: boolean;
 }
 
 export interface IHomeProps {
