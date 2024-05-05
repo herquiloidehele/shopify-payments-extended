@@ -11,6 +11,10 @@
     "status": {
       "active": "Activo",
       "inactive": "Inactivo"
+    },
+    "time": {
+      "month": "Mês",
+      "months": "Meses"
     }
   },
   "pages": {

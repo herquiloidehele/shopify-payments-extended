@@ -1,12 +1,13 @@
 import { Box, FormControl, InputLabel, MenuItem, Select, Snackbar } from "@mui/material";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import React, { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import PackageManager from "../../../Managers/PackageManager";
 import StoresManager from "../../../Managers/StoresManager";
 import SubscriptionManager from "../../../Managers/SubscriptionManager";
 import { INewSubscription } from "../../../models";
-import { formatCurrency } from "../../../Utils/functions/Ui";
+import { formatCurrency, getPackageDuration } from "../../../Utils/functions/Ui";
 import ModalWrapper from "../../components/Modals/ModalWrapper";
 
 interface ICreateSubscriptionModalProps {
@@ -15,6 +16,7 @@ interface ICreateSubscriptionModalProps {
 }
 
 const CreateSubscriptionModal: React.FC<ICreateSubscriptionModalProps> = ({ isOpen, onClose }) => {
+  const { t } = useTranslation();
   const [modalData, setModalData] = React.useState<any | undefined>();
   const [subscription, setSubscription] = React.useState<INewSubscription>({} as INewSubscription);
   const [showPopup, setShowPopup] = React.useState(false);
@@ -117,7 +119,7 @@ const CreateSubscriptionModal: React.FC<ICreateSubscriptionModalProps> = ({ isOp
               <Select labelId="role-labelId" id="demo-simple-select" name="packageId" value={subscription.packageId} label="Selecione o Pacote" onChange={handleFieldChange} disabled={saveLoading}>
                 {packages.map((packageItem) => (
                   <MenuItem value={packageItem.id}>
-                    {packageItem.name} / {packageItem.monthsDuration} Mês - {formatCurrency(packageItem.price)}
+                    {packageItem.name} / {getPackageDuration(t, packageItem.monthsDuration)} - {formatCurrency(packageItem.price)}
                   </MenuItem>
                 ))}
               </Select>

@@ -12,7 +12,7 @@ import StoresManager from "../../../Managers/StoresManager";
 import SubscriptionManager from "../../../Managers/SubscriptionManager";
 import { INewUserSubscription, ISubscription, IUser } from "../../../models";
 import { Constants } from "../../../Utils/constants/Constants";
-import { formatCurrency, getPackageName } from "../../../Utils/functions/Ui";
+import { formatCurrency, getPackageDuration, getPackageName } from "../../../Utils/functions/Ui";
 import AvatarFallback from "../../assets/img/avatar-fallback.png";
 import CustomCardComponent from "../../components/Generic/CustomCard/CustomCard";
 import TableWrapper from "../../components/Tables/TableWrapper";
@@ -92,7 +92,7 @@ const AccountSettings: React.FC = () => {
       return [
         subscription.shop.shopReference,
         getPackageName(subscription.package),
-        `${subscription.package.monthsDuration} / Mês`,
+        getPackageDuration(t, subscription.package.monthsDuration),
         subscription.created_at.format(Constants.DATE_FORMATS.DATE),
         subscription.validUntil.format(Constants.DATE_FORMATS.DATE),
       ];
@@ -129,7 +129,7 @@ const AccountSettings: React.FC = () => {
                       >
                         {packages.map((packageItem) => (
                           <MenuItem value={packageItem.id}>
-                            {packageItem.name} / {packageItem.monthsDuration} Mês - {formatCurrency(packageItem.price)}
+                            {packageItem.name} / {getPackageDuration(t, packageItem.monthsDuration)} - {formatCurrency(packageItem.price)}
                           </MenuItem>
                         ))}
                       </Select>

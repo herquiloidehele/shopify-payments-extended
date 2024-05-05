@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import SubscriptionManager from "../../../Managers/SubscriptionManager";
 import { ISubscription } from "../../../models";
 import { Constants } from "../../../Utils/constants/Constants";
-import { getPackageName } from "../../../Utils/functions/Ui";
+import { getPackageDuration, getPackageName } from "../../../Utils/functions/Ui";
 import CustomCardComponent from "../../components/Generic/CustomCard/CustomCard";
 import ConfirmModal from "../../components/Modals/ConfirmModal";
 import TableWrapper from "../../components/Tables/TableWrapper";
@@ -80,7 +80,7 @@ function SubscriptionsPage() {
       return [
         subscription.shop.shopReference,
         getPackageName(subscription.package),
-        `${subscription.package.monthsDuration} / Mês`,
+        getPackageDuration(t, subscription.package.monthsDuration),
         subscription.created_at.format(Constants.DATE_FORMATS.DATE),
         subscription.validUntil.format(Constants.DATE_FORMATS.DATE),
         getActionButtons(subscription),
