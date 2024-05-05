@@ -73,13 +73,21 @@ const Header: React.FC<IHeaderProps> = ({ onClickMenu }) => {
             transformOrigin={{ horizontal: "right", vertical: "top" }}
             anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
           >
-            <MenuItem>
+            <MenuItem
+              onClick={() => {
+                navigate(APP_ROUTES.PRIVATE.SETTINGS);
+              }}
+            >
               <ListItemIcon>
                 <AccountCircleOutlined fontSize="small" />
               </ListItemIcon>
               {t("pages.home.header.profile")}
             </MenuItem>
-            <MenuItem>
+            <MenuItem
+              onClick={() => {
+                navigate(APP_ROUTES.PRIVATE.SETTINGS);
+              }}
+            >
               <ListItemIcon>
                 <ManageAccountsOutlined fontSize="small" />
               </ListItemIcon>
