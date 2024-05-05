@@ -104,7 +104,9 @@
       }
     },
     "payments": {
-      "title": "Pagamentos"
+      "title": "Pagamentos",
+      "paymentWithdrawal": "Levantamento de Pagamentos",
+      "withdraw" : "Levantar"
     },
     "users": {
       "title": "Users",

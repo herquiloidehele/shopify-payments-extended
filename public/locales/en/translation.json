@@ -103,7 +103,9 @@
       }
     },
     "payments": {
-      "title": "Payments"
+      "title": "Payments",
+      "paymentWithdrawal": "Payment Withdrawal",
+      "withdraw" : "Withdraw"
     },
     "users": {
       "title": "Users",

@@ -1,9 +1,11 @@
 import { Snackbar } from "@mui/material";
 import dayjs from "dayjs";
 import React, { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import PaymentsManager from "../../../Managers/PaymentsManager";
 import { IPayment } from "../../../models";
+import { Constants } from "../../../Utils/constants/Constants";
 import { formatCurrency } from "../../../Utils/functions/Ui";
 import { MoneyStye } from "../../components/Generic/Style";
 import ModalWrapper from "../../components/Modals/ModalWrapper";
@@ -27,6 +29,7 @@ const WithdrawPaymentsModal: React.FC<ICreateUserModalProps> = ({ isOpen, onClos
   const [pendingWithdraws, setPendingWithdraws] = useState<IPayment[]>([]);
   const [withdrawsResponse, setWithdrawsResponse] = useState<IWithdrawsResponse>({ successWithdraws: [], failedWithdraws: [] });
   const { pendingWithdrawsTableColumns } = useHome();
+  const { t } = useTranslation();
 
   const handleClodeModal = useCallback(() => {
     if (!modalData) {
@@ -42,8 +45,8 @@ const WithdrawPaymentsModal: React.FC<ICreateUserModalProps> = ({ isOpen, onClos
     setModalData({
       id: "withdraw-payments-modal",
       isOpen: false,
-      title: "Levantamento de Pagamentos",
-      actionButtonText: "Levantar",
+      title: t("pages.payments.paymentWithdrawal"),
+      actionButtonText: t("pages.payments.withdraw"),
     });
   }, [modalData]);
 
@@ -82,7 +85,7 @@ const WithdrawPaymentsModal: React.FC<ICreateUserModalProps> = ({ isOpen, onClos
       return pendingWithdraws.map((data: IPayment) => ({
         order: `${data.orderNumber}`,
         amount: <MoneyStye mode="SUCCESS">{formatCurrency(data.price)}</MoneyStye>,
-        date: dayjs(data.createdAt).format("DD/MM/YYYY HH:mm"),
+        date: dayjs(data.createdAt).format(Constants.DATE_FORMATS.DATE_TIME),
       }));
     },
     [pendingWithdraws]
