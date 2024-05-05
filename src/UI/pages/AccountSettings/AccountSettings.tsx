@@ -103,64 +103,66 @@ const AccountSettings: React.FC = () => {
   return (
     <Grid container>
       <Grid container rowSpacing={3} columnSpacing={5}>
-        <Grid item xs={7}>
-          <CustomCardComponent title={t("pages.settings.subscriptions.title")}>
-            <InputInfo>{t("pages.settings.subscriptions.form.label")}</InputInfo>
-            <Grid container columnSpacing={4}>
-              <Grid item xs={7}>
-                <SubscriptionForm fullWidth>
-                  {packages && (
-                    <Select
-                      labelId="role-labelId"
-                      id="packages-list"
-                      name="packageId"
-                      title={t("pages.subscriptions.package")}
-                      value={subscription.packageId}
-                      onChange={handleFieldChange}
-                      disabled={saveLoading}
-                    >
-                      {packages.map((packageItem) => (
-                        <MenuItem value={packageItem.id}>
-                          {packageItem.name} / {packageItem.monthsDuration} Mês - {formatCurrency(packageItem.price)}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  )}
-
-                  <LoadingButton
-                    loading={saveLoading}
-                    className="save-button"
-                    variant="contained"
-                    color="primary"
-                    disabled={!subscription.packageId}
-                    disableElevation
-                    onClick={() => createSubscriptionMutation(subscription)}
-                  >
-                    {currentSubscription?.isActive ? t("pages.settings.subscriptions.form.extendSubscription") : t("pages.settings.subscriptions.form.activateSubscription")}
-                  </LoadingButton>
-                </SubscriptionForm>
-              </Grid>
-
-              <Grid item xs={5}>
-                {currentSubscription && (
-                  <SubscriptionInfo>
-                    <span className="title">{t("pages.settings.subscriptions.subscriptionInfo.title")}</span>
-                    <div className="status">
-                      <p>{t("pages.settings.subscriptions.subscriptionInfo.status")}: </p>
-                      {getSubscriptionStatus(currentSubscription.isActive)}
-                    </div>
-                    {currentSubscription.validUntil && currentSubscription.isActive && (
-                      <div className="expire">
-                        <p>{t("pages.settings.subscriptions.subscriptionInfo.validUntil")}: </p>
-                        <span>{currentSubscription.validUntil.format(Constants.DATE_FORMATS.DATE_TIME)}</span>
-                      </div>
+        {AuthService.isStoreOwner && (
+          <Grid item xs={7}>
+            <CustomCardComponent title={t("pages.settings.subscriptions.title")}>
+              <InputInfo>{t("pages.settings.subscriptions.form.label")}</InputInfo>
+              <Grid container columnSpacing={4}>
+                <Grid item xs={7}>
+                  <SubscriptionForm fullWidth>
+                    {packages && (
+                      <Select
+                        labelId="role-labelId"
+                        id="packages-list"
+                        name="packageId"
+                        title={t("pages.subscriptions.package")}
+                        value={subscription.packageId}
+                        onChange={handleFieldChange}
+                        disabled={saveLoading}
+                      >
+                        {packages.map((packageItem) => (
+                          <MenuItem value={packageItem.id}>
+                            {packageItem.name} / {packageItem.monthsDuration} Mês - {formatCurrency(packageItem.price)}
+                          </MenuItem>
+                        ))}
+                      </Select>
                     )}
-                  </SubscriptionInfo>
-                )}
+
+                    <LoadingButton
+                      loading={saveLoading}
+                      className="save-button"
+                      variant="contained"
+                      color="primary"
+                      disabled={!subscription.packageId}
+                      disableElevation
+                      onClick={() => createSubscriptionMutation(subscription)}
+                    >
+                      {currentSubscription?.isActive ? t("pages.settings.subscriptions.form.extendSubscription") : t("pages.settings.subscriptions.form.activateSubscription")}
+                    </LoadingButton>
+                  </SubscriptionForm>
+                </Grid>
+
+                <Grid item xs={5}>
+                  {currentSubscription && (
+                    <SubscriptionInfo>
+                      <span className="title">{t("pages.settings.subscriptions.subscriptionInfo.title")}</span>
+                      <div className="status">
+                        <p>{t("pages.settings.subscriptions.subscriptionInfo.status")}: </p>
+                        {getSubscriptionStatus(currentSubscription.isActive)}
+                      </div>
+                      {currentSubscription.validUntil && currentSubscription.isActive && (
+                        <div className="expire">
+                          <p>{t("pages.settings.subscriptions.subscriptionInfo.validUntil")}: </p>
+                          <span>{currentSubscription.validUntil.format(Constants.DATE_FORMATS.DATE_TIME)}</span>
+                        </div>
+                      )}
+                    </SubscriptionInfo>
+                  )}
+                </Grid>
               </Grid>
-            </Grid>
-          </CustomCardComponent>
-        </Grid>
+            </CustomCardComponent>
+          </Grid>
+        )}
 
         <Grid item xs={5}>
           <CustomCardComponent title={t("pages.settings.profile.title")}>
