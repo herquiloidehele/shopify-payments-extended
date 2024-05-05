@@ -1,4 +1,4 @@
-import { Menu as MenuIcon, Logout, ManageAccountsOutlined, AccountCircleOutlined } from "@mui/icons-material";
+import { AccountCircleOutlined, Logout, ManageAccountsOutlined, Menu as MenuIcon } from "@mui/icons-material";
 import { Avatar, Button, CircularProgress, ListItemIcon, Menu, MenuItem } from "@mui/material";
 import i18n from "i18next";
 import React, { useState } from "react";
@@ -8,7 +8,8 @@ import { useNavigate } from "react-router-dom";
 import AuthService from "../../../Api/Services/AuthService";
 import { LANGUAGUES } from "../../../models";
 import { APP_ROUTES } from "../../../Utils/constants/Routes";
-import { HeaderWrapper, AvatarNotificationWrapper, InputSearch } from "../../pages/Home/Style";
+import AvatarFallback from "../../assets/img/avatar-fallback.png";
+import { AvatarNotificationWrapper, HeaderWrapper, InputSearch } from "../../pages/Home/Style";
 import Dropdown, { IDropdownItem } from "../Dropdown/Dropdown";
 
 interface IHeaderProps {
@@ -60,7 +61,7 @@ const Header: React.FC<IHeaderProps> = ({ onClickMenu }) => {
         <Dropdown defaultItem={selectedLanguage} items={LANGUAGUES} onSelect={changeLanguage} disabled={false} isInput />
         <div>
           <Button onClick={handleClick}>
-            <Avatar className="avatar-icon" alt="Remy Sharp" src="https://material-ui.com/static/images/avatar/1.jpg" />
+            <Avatar className="avatar-icon" alt="Remy Sharp" src={AvatarFallback} />
           </Button>
 
           <Menu

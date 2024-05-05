@@ -32,6 +32,7 @@ export interface ISubscription {
   package: Partial<IPackage>;
   validUntil: Dayjs;
   created_at: Dayjs;
+  isActive: boolean;
 }
 
 export interface INewSubscription {

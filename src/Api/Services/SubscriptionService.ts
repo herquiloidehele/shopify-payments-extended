@@ -60,6 +60,24 @@ class SubscriptionService {
       throw error;
     }
   }
+
+  public async fetchCurrentSubscription(storeId: string) {
+    Logger.log(this.LOG_TAG, "Fetch current subscription");
+
+    try {
+      const { data, status } = await HttpClient.post(API_ROUTES.SUBSCRIPTIONS.CURRENT, { shopId: storeId });
+
+      if (status !== 200) {
+        Logger.error(this.LOG_TAG, "Error on fetch current subscription", data);
+        throw new Error("Error on fetch current subscription");
+      }
+
+      return data as ISubscriptionResponse;
+    } catch (error) {
+      Logger.error(this.LOG_TAG, "Error on fetch current subscription", error);
+      throw error;
+    }
+  }
 }
 
 export default new SubscriptionService();

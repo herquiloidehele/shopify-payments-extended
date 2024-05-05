@@ -17,7 +17,7 @@ class SubscriptionManager {
       const subscriptions = await SubscriptionService.fetchAllSubscription();
       Logger.log(this.LOG_TAG, "Subscriptions Response", [subscriptions]);
 
-      const convertedSubscriptions = subscriptions.map(this.convertDataToSubscriptionList);
+      const convertedSubscriptions = subscriptions.map(this.convertDataToSubscription);
       Logger.log(this.LOG_TAG, "Subscriptions converted successfully", [convertedSubscriptions]);
 
       return convertedSubscriptions;
@@ -55,13 +55,35 @@ class SubscriptionManager {
     }
   }
 
-  private convertDataToSubscriptionList(data: ISubscriptionResponse): ISubscription {
+  public async fetchCurrentSubscription(storeId?: string): Promise<ISubscription> {
+    Logger.log(this.LOG_TAG, "Fetch current subscription");
+
+    try {
+      if (!storeId) {
+        return Promise.reject(new Error("Store ID is required"));
+      }
+
+      const subscription = await SubscriptionService.fetchCurrentSubscription(storeId);
+      Logger.log(this.LOG_TAG, "Current Subscription Response", [subscription]);
+
+      const convertedSubscription = this.convertDataToSubscription(subscription);
+      Logger.log(this.LOG_TAG, "Current Subscription converted successfully", [convertedSubscription]);
+
+      return convertedSubscription;
+    } catch (error) {
+      Logger.error(this.LOG_TAG, "Error on get current subscription", error);
+      return Promise.reject(error);
+    }
+  }
+
+  private convertDataToSubscription(data: ISubscriptionResponse): ISubscription {
     return {
       id: data._id,
       created_at: dayjs(data.created_at),
       validUntil: dayjs(data.validUntil),
       shop: data.shop ? StoresManager.convertDataToStore(data.shop) : {},
       package: data.package ? PackageManager.convertPackageData(data.package) : {},
+      isActive: dayjs(data.validUntil).isAfter(dayjs()),
     };
   }
 }

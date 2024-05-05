@@ -36,5 +36,6 @@ export const API_ROUTES = {
     LIST: "/subscriptions",
     CREATE: "/subscriptions",
     DELETE: (subscriptionId: string) => `/subscriptions/${subscriptionId}`,
+    CURRENT: "/subscriptions/current",
   },
 };
