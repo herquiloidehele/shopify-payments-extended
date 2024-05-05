@@ -32,6 +32,7 @@
     "settings": {
       "subscriptions": {
         "title": "Subscrições",
+        "subscriptionHistory": "Histórico de subscrições",
         "form": {
           "label": "Seleccione o pacote para a subscrição",
           "extendSubscription": "Extender subscrição",

@@ -25,6 +25,24 @@ class SubscriptionService {
     }
   }
 
+  public async fetchSubscriptionByStoreId(storeId: string) {
+    Logger.log(this.LOG_TAG, "Fetch subscription by store ID", storeId);
+
+    try {
+      const { data, status } = await HttpClient.get(API_ROUTES.SUBSCRIPTIONS.LIST_BY_STORE(storeId));
+
+      if (status !== 200) {
+        Logger.error(this.LOG_TAG, "Error on fetch subscription by store ID", data);
+        throw new Error("Error on fetch subscription by store ID");
+      }
+
+      return data as ISubscriptionResponse[];
+    } catch (error) {
+      Logger.error(this.LOG_TAG, "Error on fetch subscription by store ID", error);
+      throw error;
+    }
+  }
+
   public async createSubscription(data: INewSubscription) {
     Logger.log(this.LOG_TAG, "Create subscription", data);
 

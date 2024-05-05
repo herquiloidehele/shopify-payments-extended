@@ -32,6 +32,7 @@
     "settings": {
       "subscriptions": {
         "title": "Subscriptions",
+        "subscriptionHistory": "Subscription History",
         "form": {
           "label": "Select a package to subscribe",
           "extendSubscription": "Extend subscription",

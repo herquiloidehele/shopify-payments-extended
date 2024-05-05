@@ -5,9 +5,9 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 import SubscriptionManager from "../../../Managers/SubscriptionManager";
-import { IPackage, ISubscription } from "../../../models";
+import { ISubscription } from "../../../models";
 import { Constants } from "../../../Utils/constants/Constants";
-import { formatCurrency } from "../../../Utils/functions/Ui";
+import { getPackageName } from "../../../Utils/functions/Ui";
 import CustomCardComponent from "../../components/Generic/CustomCard/CustomCard";
 import ConfirmModal from "../../components/Modals/ConfirmModal";
 import TableWrapper from "../../components/Tables/TableWrapper";
@@ -47,14 +47,6 @@ function SubscriptionsPage() {
   const openCreateSubscriptionModal = () => {
     setIsCreateModalOpen(true);
     refetch();
-  };
-
-  const getPackageName = (packageItem: Partial<IPackage>) => {
-    if (!packageItem) {
-      return "--";
-    }
-
-    return `${packageItem.name} - ${formatCurrency(packageItem.price)}`;
   };
 
   const openRemoveConfirmationModal = (subscription: ISubscription) => {

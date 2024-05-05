@@ -5,14 +5,14 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import AuthService from "../../../Api/Services/AuthService";
-import SubscriptionService from "../../../Api/Services/SubscriptionService";
 import PackageManager from "../../../Managers/PackageManager";
 import SubscriptionManager from "../../../Managers/SubscriptionManager";
-import { INewSubscription, IUser } from "../../../models";
+import { INewSubscription, ISubscription, IUser } from "../../../models";
 import { Constants } from "../../../Utils/constants/Constants";
-import { formatCurrency } from "../../../Utils/functions/Ui";
+import { formatCurrency, getPackageName } from "../../../Utils/functions/Ui";
 import AvatarFallback from "../../assets/img/avatar-fallback.png";
 import CustomCardComponent from "../../components/Generic/CustomCard/CustomCard";
+import TableWrapper from "../../components/Tables/TableWrapper";
 import { InputInfo, SubscriptionForm, SubscriptionInfo, UserInfo } from "./styles";
 
 const AccountSettings: React.FC = () => {
@@ -22,7 +22,7 @@ const AccountSettings: React.FC = () => {
   const [showPopup, setShowPopup] = React.useState(false);
   const [toastMessage, setToastMessage] = useState("");
 
-  const { data } = useQuery({ queryKey: ["subscriptions"], queryFn: () => SubscriptionService.fetchAllSubscription() });
+  const { data } = useQuery({ queryKey: ["subscriptions", userInfo?.storeId], queryFn: () => SubscriptionManager.getSubscriptionByStoreId(userInfo?.storeId) });
   const { data: packages } = useQuery({ queryKey: ["packages"], queryFn: () => PackageManager.getPackages() });
 
   const { data: currentSubscription } = useQuery({ queryKey: ["currentSubscription", userInfo?.storeId], queryFn: () => SubscriptionManager.fetchCurrentSubscription(userInfo?.storeId) });
@@ -36,11 +36,7 @@ const AccountSettings: React.FC = () => {
 
   const { mutate: createSubscriptionMutation, isPending: saveLoading } = useMutation({
     mutationKey: ["createSubscriptions"],
-    mutationFn: (data: INewSubscription) => {
-      // SubscriptionManager.createSubscription(data)
-
-      return Promise.resolve();
-    },
+    mutationFn: (data: INewSubscription) => SubscriptionManager.createSubscription(data),
     onSuccess: () => {
       setToastMessage(t("pages.settings.subscriptions.successMessage"));
       setShowPopup(true);
@@ -63,9 +59,33 @@ const AccountSettings: React.FC = () => {
     return <Chip label={t("generics.status.inactive")} color="error" />;
   };
 
+  const createSubscriptionsTableRows = (subscriptions: ISubscription[]) => {
+    if (!subscriptions.length) {
+      return [];
+    }
+
+    return subscriptions.map((subscription: ISubscription) => {
+      return [
+        subscription.shop.shopReference,
+        getPackageName(subscription.package),
+        `${subscription.package.monthsDuration} / Mês`,
+        subscription.created_at.format(Constants.DATE_FORMATS.DATE),
+        subscription.validUntil.format(Constants.DATE_FORMATS.DATE),
+      ];
+    });
+  };
+
+  const tableColumnsWrapper = [
+    t("pages.subscriptions.table.store"),
+    t("pages.subscriptions.table.packageName"),
+    t("pages.subscriptions.table.duration"),
+    t("pages.subscriptions.table.createdAt"),
+    t("pages.subscriptions.table.validUntil"),
+  ];
+
   return (
     <Grid container>
-      <Grid container columnSpacing={5}>
+      <Grid container rowSpacing={3} columnSpacing={5}>
         <Grid item xs={7}>
           <CustomCardComponent title={t("pages.settings.subscriptions.title")}>
             <InputInfo>{t("pages.settings.subscriptions.form.label")}</InputInfo>
@@ -90,7 +110,15 @@ const AccountSettings: React.FC = () => {
                     </Select>
                   )}
 
-                  <LoadingButton loading={saveLoading} className="save-button" variant="contained" color="primary" disableElevation onClick={() => createSubscriptionMutation(subscription)}>
+                  <LoadingButton
+                    loading={saveLoading}
+                    className="save-button"
+                    variant="contained"
+                    color="primary"
+                    disabled={!subscription.packageId}
+                    disableElevation
+                    onClick={() => createSubscriptionMutation(subscription)}
+                  >
                     {currentSubscription?.isActive ? t("pages.settings.subscriptions.form.extendSubscription") : t("pages.settings.subscriptions.form.activateSubscription")}
                   </LoadingButton>
                 </SubscriptionForm>
@@ -131,8 +159,15 @@ const AccountSettings: React.FC = () => {
           </CustomCardComponent>
         </Grid>
 
-        <Snackbar open={showPopup} autoHideDuration={6000} message={toastMessage} anchorOrigin={{ vertical: "bottom", horizontal: "center" }} />
+        {data && data.length > 0 && (
+          <Grid item xs={12} style={{ height: "100%" }}>
+            <CustomCardComponent title={t("pages.settings.subscriptions.subscriptionHistory")}>
+              {data && <TableWrapper columns={tableColumnsWrapper} rows={createSubscriptionsTableRows(data)} />}
+            </CustomCardComponent>
+          </Grid>
+        )}
       </Grid>
+      <Snackbar open={showPopup} autoHideDuration={6000} message={toastMessage} anchorOrigin={{ vertical: "bottom", horizontal: "center" }} />
     </Grid>
   );
 };

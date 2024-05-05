@@ -27,6 +27,27 @@ class SubscriptionManager {
     }
   }
 
+  public async getSubscriptionByStoreId(storeId?: string): Promise<ISubscription[]> {
+    Logger.log(this.LOG_TAG, "Get all subscriptions by store ID", storeId);
+
+    try {
+      if (!storeId) {
+        return Promise.reject(new Error("Store ID is required"));
+      }
+
+      const subscriptions = await SubscriptionService.fetchSubscriptionByStoreId(storeId);
+      Logger.log(this.LOG_TAG, "Subscriptions Response", [subscriptions]);
+
+      const convertedSubscriptions = subscriptions.map(this.convertDataToSubscription);
+      Logger.log(this.LOG_TAG, "Subscriptions converted successfully", [convertedSubscriptions]);
+
+      return convertedSubscriptions;
+    } catch (error) {
+      Logger.error(this.LOG_TAG, "Error on get all subscriptions by store ID", error);
+      return Promise.reject(error);
+    }
+  }
+
   public async createSubscription(subscriptionData: INewSubscription): Promise<boolean> {
     Logger.log(this.LOG_TAG, "Create Subscription", subscriptionData);
 
