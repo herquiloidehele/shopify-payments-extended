@@ -1,5 +1,5 @@
 import { LoadingButton } from "@mui/lab";
-import { Avatar, Chip, Grid, MenuItem, Select, SelectChangeEvent, Snackbar } from "@mui/material";
+import { Avatar, Chip, Grid, MenuItem, Select, Snackbar, TextField } from "@mui/material";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import Confetti from "react-confetti";
@@ -8,8 +8,9 @@ import useWindowSize from "react-use/lib/useWindowSize";
 
 import AuthService from "../../../Api/Services/AuthService";
 import PackageManager from "../../../Managers/PackageManager";
+import StoresManager from "../../../Managers/StoresManager";
 import SubscriptionManager from "../../../Managers/SubscriptionManager";
-import { INewSubscription, ISubscription, IUser } from "../../../models";
+import { INewUserSubscription, ISubscription, IUser } from "../../../models";
 import { Constants } from "../../../Utils/constants/Constants";
 import { formatCurrency, getPackageName } from "../../../Utils/functions/Ui";
 import AvatarFallback from "../../assets/img/avatar-fallback.png";
@@ -20,7 +21,11 @@ import { InputInfo, SubscriptionForm, SubscriptionInfo, UserInfo } from "./style
 const AccountSettings: React.FC = () => {
   const { t } = useTranslation();
   const [userInfo, setUserInfo] = useState<IUser>();
-  const [subscription, setSubscription] = React.useState<INewSubscription>({} as INewSubscription);
+  const [subscription, setSubscription] = React.useState<INewUserSubscription>({
+    phoneNumber: "",
+    shopId: "",
+    packageId: "",
+  });
   const [showPopup, setShowPopup] = React.useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const { width, height } = useWindowSize();
@@ -33,6 +38,8 @@ const AccountSettings: React.FC = () => {
     queryFn: () => SubscriptionManager.fetchCurrentSubscription(userInfo?.storeId),
   });
 
+  const { data: storeInfo } = useQuery({ queryKey: ["userStore"], queryFn: () => StoresManager.getStoreById(AuthService.getAuthUser.storeId) });
+
   const showConfettiAnimation = () => {
     setShowConfetti(true);
     setTimeout(() => {
@@ -41,15 +48,15 @@ const AccountSettings: React.FC = () => {
   };
 
   useEffect(() => {
-    if (AuthService.getAuthUser) {
+    if (AuthService.getAuthUser && storeInfo?.id) {
       setUserInfo(AuthService.getAuthUser);
-      setSubscription({ shopId: AuthService.getAuthUser.storeId, packageId: "" });
+      setSubscription({ ...subscription, shopId: storeInfo.id, phoneNumber: storeInfo.withdrawPhoneNumber });
     }
-  }, [AuthService.getAuthUser]);
+  }, [storeInfo]);
 
   const { mutate: createSubscriptionMutation, isPending: saveLoading } = useMutation({
     mutationKey: ["createSubscriptions"],
-    mutationFn: (data: INewSubscription) => SubscriptionManager.createUserSubscription(data.shopId, data.packageId),
+    mutationFn: (data: INewUserSubscription) => SubscriptionManager.createUserSubscription(data),
     onSuccess: () => {
       showConfettiAnimation();
       setToastMessage(t("pages.settings.subscriptions.successMessage"));
@@ -64,7 +71,7 @@ const AccountSettings: React.FC = () => {
     },
   });
 
-  const handleFieldChange = (event: SelectChangeEvent) => {
+  const handleFieldChange = (event: any) => {
     setSubscription({ ...subscription, [event.target.name]: event.target.value });
   };
 
@@ -128,12 +135,22 @@ const AccountSettings: React.FC = () => {
                       </Select>
                     )}
 
+                    <TextField
+                      fullWidth
+                      required
+                      label={t("pages.settings.subscriptions.form.phoneNumber")}
+                      name="phoneNumber"
+                      value={subscription.phoneNumber}
+                      onChange={handleFieldChange}
+                      disabled={saveLoading}
+                    />
+
                     <LoadingButton
                       loading={saveLoading}
                       className="save-button"
                       variant="contained"
                       color="primary"
-                      disabled={!subscription.packageId}
+                      disabled={!subscription.packageId || !subscription.phoneNumber}
                       disableElevation
                       onClick={() => createSubscriptionMutation(subscription)}
                     >

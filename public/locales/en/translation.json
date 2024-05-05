@@ -35,6 +35,7 @@
         "subscriptionHistory": "Subscription History",
         "form": {
           "label": "Select a package to subscribe",
+          "phoneNumber": "M-Pesa Phone Number",
           "extendSubscription": "Extend subscription",
           "activateSubscription": "Activate subscription"
         },

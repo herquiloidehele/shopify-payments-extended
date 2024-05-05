@@ -1,5 +1,5 @@
 import { ISubscriptionResponse } from "../../ModelDaos";
-import { INewSubscription } from "../../models";
+import { INewSubscription, INewUserSubscription } from "../../models";
 import { API_ROUTES } from "../../Utils/constants/Routes";
 import Logger from "../../Utils/Logger";
 import HttpClient from "../HttpClient";
@@ -61,7 +61,7 @@ class SubscriptionService {
     }
   }
 
-  public async createUserSubscription(data: INewSubscription) {
+  public async createUserSubscription(data: INewUserSubscription) {
     Logger.log(this.LOG_TAG, "Create subscription", data);
 
     try {

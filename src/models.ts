@@ -40,6 +40,10 @@ export interface INewSubscription {
   packageId: string;
 }
 
+export interface INewUserSubscription extends INewSubscription {
+  phoneNumber: string;
+}
+
 export enum USER_ROLES {
   ADMIN = "ADMIN",
   STORE_OWNER = "STORE_OWNER",

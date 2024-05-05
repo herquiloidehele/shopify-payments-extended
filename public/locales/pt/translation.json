@@ -35,6 +35,7 @@
         "subscriptionHistory": "Histórico de subscrições",
         "form": {
           "label": "Seleccione o pacote para a subscrição",
+          "phoneNumber": "Número de telefone M-Pesa",
           "extendSubscription": "Extender subscrição",
           "activateSubscription": "Activar subscrição"
         },

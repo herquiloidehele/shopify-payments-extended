@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 
 import SubscriptionService from "../Api/Services/SubscriptionService";
 import { ISubscriptionResponse } from "../ModelDaos";
-import { INewSubscription, ISubscription } from "../models";
+import { INewSubscription, INewUserSubscription, ISubscription } from "../models";
 import Logger from "../Utils/Logger";
 import PackageManager from "./PackageManager";
 import StoresManager from "./StoresManager";
@@ -62,18 +62,11 @@ class SubscriptionManager {
     }
   }
 
-  public async createUserSubscription(storeReference: string, packageId: string): Promise<boolean> {
-    Logger.log(this.LOG_TAG, "Create Subscription", [storeReference, packageId]);
+  public async createUserSubscription(userSubscription: INewUserSubscription): Promise<boolean> {
+    Logger.log(this.LOG_TAG, "Create Subscription", [userSubscription]);
 
     try {
-      const store = await StoresManager.getStoreById(storeReference);
-      Logger.log(this.LOG_TAG, "Store Data", [store]);
-
-      if (!store.id) {
-        return Promise.reject(new Error("Store ID not found"));
-      }
-
-      const response = await SubscriptionService.createUserSubscription({ packageId, shopId: store.id });
+      const response = await SubscriptionService.createUserSubscription(userSubscription);
       Logger.log(this.LOG_TAG, "Subscription Created", [response]);
 
       return true;
