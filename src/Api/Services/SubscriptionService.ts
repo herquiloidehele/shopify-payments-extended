@@ -61,6 +61,24 @@ class SubscriptionService {
     }
   }
 
+  public async createUserSubscription(data: INewSubscription) {
+    Logger.log(this.LOG_TAG, "Create subscription", data);
+
+    try {
+      const { data: responseData, status } = await HttpClient.post(API_ROUTES.SUBSCRIPTIONS.CREATE_USER, data);
+
+      if (status !== 200) {
+        Logger.error(this.LOG_TAG, "Error on create subscription", responseData);
+        throw new Error("Error on create subscription");
+      }
+
+      return !!responseData;
+    } catch (error) {
+      Logger.error(this.LOG_TAG, "Error on create subscription", error);
+      throw error;
+    }
+  }
+
   public async deleteSubscription(subscriptionId: string) {
     Logger.log(this.LOG_TAG, "Delete subscription", subscriptionId);
 

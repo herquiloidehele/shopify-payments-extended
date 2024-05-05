@@ -11,14 +11,31 @@ export default abstract class StoresManager {
 
     try {
       const storesResponse = await StoresService.getStores();
-      Logger.log("StoresManager", "Stores Data loaded successfully", storesResponse);
+      Logger.log(this.LOG_TAG, "Stores Data loaded successfully", storesResponse);
 
       const storesList = storesResponse.map(this.convertDataToStore);
-      Logger.log("StoresManager", "Stores Data converted successfully", storesList);
+      Logger.log(this.LOG_TAG, "Stores Data converted successfully", storesList);
 
       return storesList;
     } catch (error) {
-      Logger.error("StoresManager", "Error Fetching Stores", error);
+      Logger.error(this.LOG_TAG, "Error Fetching Stores", error);
+      return Promise.reject(error);
+    }
+  }
+
+  public static async getStoreById(storeId: string): Promise<IShop> {
+    Logger.log(this.LOG_TAG, "Start request getStoreById...");
+
+    try {
+      const storeResponse = await StoresService.getStore(storeId);
+      Logger.log(this.LOG_TAG, "Store loaded successfully", storeResponse);
+
+      const store = this.convertDataToStore(storeResponse);
+      Logger.log(this.LOG_TAG, "Store converted successfully", store);
+
+      return store;
+    } catch (error) {
+      Logger.error("StoresManager", "Error Fetching Store", error);
       return Promise.reject(error);
     }
   }

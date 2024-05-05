@@ -62,6 +62,27 @@ class SubscriptionManager {
     }
   }
 
+  public async createUserSubscription(storeReference: string, packageId: string): Promise<boolean> {
+    Logger.log(this.LOG_TAG, "Create Subscription", [storeReference, packageId]);
+
+    try {
+      const store = await StoresManager.getStoreById(storeReference);
+      Logger.log(this.LOG_TAG, "Store Data", [store]);
+
+      if (!store.id) {
+        return Promise.reject(new Error("Store ID not found"));
+      }
+
+      const response = await SubscriptionService.createUserSubscription({ packageId, shopId: store.id });
+      Logger.log(this.LOG_TAG, "Subscription Created", [response]);
+
+      return true;
+    } catch (error) {
+      Logger.error(this.LOG_TAG, "Error on create subscription", error);
+      return Promise.reject(error);
+    }
+  }
+
   public async deleteSubscription(subscriptionId: string): Promise<boolean> {
     Logger.log(this.LOG_TAG, "Delete Subscription", subscriptionId);
 

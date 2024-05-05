@@ -2,7 +2,9 @@ import { LoadingButton } from "@mui/lab";
 import { Avatar, Chip, Grid, MenuItem, Select, SelectChangeEvent, Snackbar } from "@mui/material";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
+import Confetti from "react-confetti";
 import { useTranslation } from "react-i18next";
+import useWindowSize from "react-use/lib/useWindowSize";
 
 import AuthService from "../../../Api/Services/AuthService";
 import PackageManager from "../../../Managers/PackageManager";
@@ -21,11 +23,22 @@ const AccountSettings: React.FC = () => {
   const [subscription, setSubscription] = React.useState<INewSubscription>({} as INewSubscription);
   const [showPopup, setShowPopup] = React.useState(false);
   const [toastMessage, setToastMessage] = useState("");
+  const { width, height } = useWindowSize();
+  const [showConfetti, setShowConfetti] = useState(false);
 
-  const { data } = useQuery({ queryKey: ["subscriptions", userInfo?.storeId], queryFn: () => SubscriptionManager.getSubscriptionByStoreId(userInfo?.storeId) });
+  const { data, refetch: refetchSubscriptions } = useQuery({ queryKey: ["subscriptions", userInfo?.storeId], queryFn: () => SubscriptionManager.getSubscriptionByStoreId(userInfo?.storeId) });
   const { data: packages } = useQuery({ queryKey: ["packages"], queryFn: () => PackageManager.getPackages() });
+  const { data: currentSubscription, refetch: refetchCurrentSubscription } = useQuery({
+    queryKey: ["currentSubscription", userInfo?.storeId],
+    queryFn: () => SubscriptionManager.fetchCurrentSubscription(userInfo?.storeId),
+  });
 
-  const { data: currentSubscription } = useQuery({ queryKey: ["currentSubscription", userInfo?.storeId], queryFn: () => SubscriptionManager.fetchCurrentSubscription(userInfo?.storeId) });
+  const showConfettiAnimation = () => {
+    setShowConfetti(true);
+    setTimeout(() => {
+      setShowConfetti(false);
+    }, 5000);
+  };
 
   useEffect(() => {
     if (AuthService.getAuthUser) {
@@ -36,10 +49,14 @@ const AccountSettings: React.FC = () => {
 
   const { mutate: createSubscriptionMutation, isPending: saveLoading } = useMutation({
     mutationKey: ["createSubscriptions"],
-    mutationFn: (data: INewSubscription) => SubscriptionManager.createSubscription(data),
+    mutationFn: (data: INewSubscription) => SubscriptionManager.createUserSubscription(data.shopId, data.packageId),
     onSuccess: () => {
+      showConfettiAnimation();
       setToastMessage(t("pages.settings.subscriptions.successMessage"));
       setShowPopup(true);
+      refetchSubscriptions();
+      refetchCurrentSubscription();
+      setSubscription({ ...subscription, packageId: "" });
     },
     onError: () => {
       setToastMessage(t("pages.settings.subscriptions.errorMessage"));
@@ -168,6 +185,8 @@ const AccountSettings: React.FC = () => {
         )}
       </Grid>
       <Snackbar open={showPopup} autoHideDuration={6000} message={toastMessage} anchorOrigin={{ vertical: "bottom", horizontal: "center" }} />
+
+      {showConfetti && <Confetti width={width} height={height} />}
     </Grid>
   );
 };
