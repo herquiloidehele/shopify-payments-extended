@@ -48,11 +48,14 @@ const AccountSettings: React.FC = () => {
   };
 
   useEffect(() => {
-    if (AuthService.getAuthUser && storeInfo?.id) {
-      setUserInfo(AuthService.getAuthUser);
+    if (storeInfo?.id) {
       setSubscription({ ...subscription, shopId: storeInfo.id, phoneNumber: storeInfo.withdrawPhoneNumber });
     }
   }, [storeInfo]);
+
+  useEffect(() => {
+    setUserInfo(AuthService.getAuthUser);
+  }, [AuthService.getAuthUser]);
 
   const { mutate: createSubscriptionMutation, isPending: saveLoading } = useMutation({
     mutationKey: ["createSubscriptions"],

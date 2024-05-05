@@ -134,7 +134,18 @@
       }
     },
     "payments": {
-      "title": "Pagamentos"
+      "title": "Pagamentos",
+      "paymentWithdrawal": "Levantamento de Pagamentos",
+      "withdraw" : "Levantar",
+      "table":  {
+        "order": "Encomenda",
+        "shop": "Loja",
+        "customer": "Cliente",
+        "amount": "Valor",
+        "date": "Data",
+        "status": "Estado",
+        "hasWithdrawed": "Estado de Levantamento"
+      }
     },
     "users": {
       "title": "Users",

@@ -40,4 +40,8 @@ export const API_ROUTES = {
     CURRENT: "/subscriptions/current",
     LIST_BY_STORE: (storeId: string) => `/subscriptions/store/${storeId}`,
   },
+  PAYMENTS: {
+    PROCESS_WITHDRAW: "/withdraws/process",
+    FETCH_PENDING_PAYMENTS: "/pending-payments",
+  },
 };
