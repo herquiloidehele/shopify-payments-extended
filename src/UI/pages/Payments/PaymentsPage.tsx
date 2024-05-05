@@ -9,6 +9,7 @@ import CustomCardComponent from "../../components/Generic/CustomCard/CustomCard"
 import TableWrapper from "../../components/Tables/TableWrapper";
 import useHome from "../Home/useHome";
 import { ButtonsControl } from "../MpesaConfig/Style";
+import WithdrawPaymentsModal from "./WithdrawPaymentsModal";
 
 const PaymentsPage = () => {
   const [paymentReport, setPaymentsReport] = useState<IPaymentReport>({} as IPaymentReport);
@@ -17,6 +18,7 @@ const PaymentsPage = () => {
 
   const { t } = useTranslation();
   const { paymentsTableColumns, createPaymentData } = useHome();
+  const [isWithdrawPaymentsModalOpen, setIsWithdrawPaymentsModalOpen] = React.useState(false);
 
   const fetchPaymentsReport = () => {
     setLoading(true);
@@ -41,7 +43,7 @@ const PaymentsPage = () => {
   const hasPendingPayments = paymentReport?.payments?.some((payment) => !payment.hasWithdrawed);
 
   const openWithdrawModal = () => {
-    // TODO: Open Withdraw Modal
+    setIsWithdrawPaymentsModalOpen(true);
   };
 
   return (
@@ -49,13 +51,22 @@ const PaymentsPage = () => {
       <Grid item xs={12} style={{ height: "100%" }}>
         <ButtonsControl>
           {AuthService.isUserAdmin && (
-            <Button disabled={hasPendingPayments} className="save-button" variant="contained" color="primary" disableElevation onClick={() => openWithdrawModal()}>
+            <Button disabled={!hasPendingPayments} className="save-button" variant="contained" color="primary" disableElevation onClick={() => openWithdrawModal()}>
               {t("generics.buttons.withdraw")}
             </Button>
           )}
         </ButtonsControl>
       </Grid>
       <Grid item xs={12}>
+        {isWithdrawPaymentsModalOpen && (
+          <WithdrawPaymentsModal
+            isOpen={isWithdrawPaymentsModalOpen}
+            onClose={() => {
+              fetchPaymentsReport();
+              setIsWithdrawPaymentsModalOpen(false);
+            }}
+          />
+        )}
         <CustomCardComponent title={t("pages.payments.title")}>
           <TableWrapper columns={paymentsTableColumns} rows={createPaymentData(paymentReport.payments)} />
         </CustomCardComponent>

@@ -38,6 +38,7 @@ export interface IModalWrapperProps {
   title: string;
   handleClose: () => void;
   actionButtonText: string;
+  actionButtonDisabled?: boolean;
   actionButtonOnClick: () => void;
   isOpen: boolean;
   children?: JSX.Element | JSX.Element[];
@@ -48,13 +49,13 @@ const CustomDialog = styled(Dialog)`
     width: 85%;
   }
 `;
-const ModalWrapper: React.FC<IModalWrapperProps> = ({ id, title, handleClose, actionButtonOnClick, actionButtonText, isOpen, children }) => {
+const ModalWrapper: React.FC<IModalWrapperProps> = ({ id, title, handleClose, actionButtonOnClick, actionButtonDisabled, actionButtonText, isOpen, children }) => {
   return (
     <CustomDialog onClose={handleClose} aria-labelledby={id} open={isOpen}>
       <BootstrapDialogTitle onClose={handleClose} title={title} />
       <DialogContent dividers>{children}</DialogContent>
       <DialogActions>
-        <Button autoFocus onClick={actionButtonOnClick}>
+        <Button autoFocus onClick={actionButtonOnClick} disabled={actionButtonDisabled}>
           {actionButtonText}
         </Button>
       </DialogActions>
@@ -66,4 +67,7 @@ ModalWrapper.defaultProps = {
   children: <></>,
 };
 
+ModalWrapper.defaultProps = {
+  actionButtonDisabled: false,
+};
 export default ModalWrapper;

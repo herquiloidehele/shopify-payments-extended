@@ -62,6 +62,8 @@ const useHome = () => {
     t("pages.home.cardPayments.table.hasWithdrawed"),
   ];
 
+  const pendingWithdrawsTableColumns = [t("pages.home.cardPayments.table.order"), t("pages.home.cardPayments.table.amount"), t("pages.home.cardPayments.table.date")];
+
   const usersTableColumns = [
     t("pages.home.cardUsers.table.name"),
     t("pages.home.cardUsers.table.role"),
@@ -98,7 +100,7 @@ const useHome = () => {
     });
   }
 
-  return { usersStatisticsData, createUsersTableRows, usersTableColumns, paysStatisticsData, paymentReport, createPaymentData, paymentsTableColumns, getUserBadge };
+  return { usersStatisticsData, createUsersTableRows, usersTableColumns, paysStatisticsData, paymentReport, createPaymentData, paymentsTableColumns, getUserBadge, pendingWithdrawsTableColumns };
 };
 
 export default useHome;

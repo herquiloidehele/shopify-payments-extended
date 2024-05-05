@@ -37,4 +37,8 @@ export const API_ROUTES = {
     CREATE: "/subscriptions",
     DELETE: (subscriptionId: string) => `/subscriptions/${subscriptionId}`,
   },
+  PAYMENTS: {
+    PROCESS_WITHDRAW: "/withdraws/process",
+    FETCH_PENDING_PAYMENTS: "/pending-payments",
+  },
 };
