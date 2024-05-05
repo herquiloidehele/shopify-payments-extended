@@ -105,7 +105,16 @@
     "payments": {
       "title": "Payments",
       "paymentWithdrawal": "Payment Withdrawal",
-      "withdraw" : "Withdraw"
+      "withdraw" : "Withdraw",
+      "table":  {
+        "order": "Order",
+        "customer": "Customer",
+        "shop": "Shop",
+        "amount": "Amount",
+        "date": "Date",
+        "status": "State",
+        "hasWithdrawed": "Withdraw status"
+      }
     },
     "users": {
       "title": "Users",

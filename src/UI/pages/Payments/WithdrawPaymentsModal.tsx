@@ -85,6 +85,7 @@ const WithdrawPaymentsModal: React.FC<ICreateUserModalProps> = ({ isOpen, onClos
       return pendingWithdraws.map((data: IPayment) => ({
         order: `${data.orderNumber}`,
         amount: <MoneyStye mode="SUCCESS">{formatCurrency(data.price)}</MoneyStye>,
+        shop: `${data.shop}`,
         date: dayjs(data.createdAt).format(Constants.DATE_FORMATS.DATE_TIME),
       }));
     },

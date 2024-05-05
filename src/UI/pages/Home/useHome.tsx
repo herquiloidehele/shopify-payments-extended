@@ -62,7 +62,7 @@ const useHome = () => {
     t("pages.home.cardPayments.table.hasWithdrawed"),
   ];
 
-  const pendingWithdrawsTableColumns = [t("pages.home.cardPayments.table.order"), t("pages.home.cardPayments.table.amount"), t("pages.home.cardPayments.table.date")];
+  const pendingWithdrawsTableColumns = [t("pages.payments.table.order"), t("pages.payments.table.amount"), t("pages.payments.table.shop"), t("pages.payments.table.date")];
 
   const usersTableColumns = [
     t("pages.home.cardUsers.table.name"),
