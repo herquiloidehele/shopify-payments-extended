@@ -7,6 +7,14 @@
       "cancel": "Cancelar",
       "confirm": "Confirmar",
       "withdraw": "Levantamento"
+    },
+    "status": {
+      "active": "Activo",
+      "inactive": "Inactivo"
+    },
+    "time": {
+      "month": "Mês",
+      "months": "Meses"
     }
   },
   "pages": {
@@ -23,6 +31,28 @@
         "mandatoryFields": "Por favor preencha todos os campos",
         "unexpectedError": "Ocorreu um erro enesperado, tente novamente mais tarde",
         "authenticationFailed": "Credenciais Inválidas"
+      }
+    },
+    "settings": {
+      "subscriptions": {
+        "title": "Subscrições",
+        "subscriptionHistory": "Histórico de subscrições",
+        "form": {
+          "label": "Seleccione o pacote para a subscrição",
+          "phoneNumber": "Número de telefone M-Pesa",
+          "extendSubscription": "Extender subscrição",
+          "activateSubscription": "Activar subscrição"
+        },
+        "subscriptionInfo": {
+          "title": "Detalhes da subscrição",
+          "status": "Estado",
+          "validUntil": "Válido até"
+        },
+        "successMessage": "Subscrição activada com sucesso",
+        "errorMessage": "Ocorreu um erro ao activar a subscrição"
+      },
+      "profile": {
+        "title": "Perfil"
       }
     },
     "subscriptions": {

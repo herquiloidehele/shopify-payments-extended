@@ -35,7 +35,10 @@ export const API_ROUTES = {
   SUBSCRIPTIONS: {
     LIST: "/subscriptions",
     CREATE: "/subscriptions",
+    CREATE_USER: "/subscriptions/user",
     DELETE: (subscriptionId: string) => `/subscriptions/${subscriptionId}`,
+    CURRENT: "/subscriptions/current",
+    LIST_BY_STORE: (storeId: string) => `/subscriptions/store/${storeId}`,
   },
   PAYMENTS: {
     PROCESS_WITHDRAW: "/withdraws/process",

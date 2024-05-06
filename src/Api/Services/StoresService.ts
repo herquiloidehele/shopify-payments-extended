@@ -1,4 +1,4 @@
-import { IEditShopRequest, INewShopRequest } from "../../ModelDaos";
+import { IEditShopRequest, INewShopRequest, IShopResponse } from "../../ModelDaos";
 import { IShop } from "../../models";
 import Logger from "../../Utils/Logger";
 import HttpClient from "../HttpClient";
@@ -80,6 +80,26 @@ export default abstract class StoresService {
       return Promise.reject(axiosResponse);
     } catch (error) {
       Logger.error(this.LOG_TAG, "Error updating Shop", error);
+      return Promise.reject(error);
+    }
+  }
+
+  public static async getStore(storeId: string): Promise<IShopResponse> {
+    Logger.log(this.LOG_TAG, "Start request getShop", [storeId]);
+
+    try {
+      const axiosResponse = await HttpClient.get(`shops/${storeId}`);
+
+      if (axiosResponse.status === 200 && axiosResponse.data) {
+        Logger.log(this.LOG_TAG, "Shop loaded successfully", axiosResponse.data);
+        return axiosResponse.data as IShopResponse;
+      }
+
+      Logger.error(this.LOG_TAG, "Error loading Shop", axiosResponse);
+
+      return Promise.reject(axiosResponse);
+    } catch (error) {
+      Logger.error(this.LOG_TAG, "Error loading Shop", error);
       return Promise.reject(error);
     }
   }

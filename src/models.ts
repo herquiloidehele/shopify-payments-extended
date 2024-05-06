@@ -32,11 +32,16 @@ export interface ISubscription {
   package: Partial<IPackage>;
   validUntil: Dayjs;
   created_at: Dayjs;
+  isActive: boolean;
 }
 
 export interface INewSubscription {
   shopId: string;
   packageId: string;
+}
+
+export interface INewUserSubscription extends INewSubscription {
+  phoneNumber: string;
 }
 
 export enum USER_ROLES {

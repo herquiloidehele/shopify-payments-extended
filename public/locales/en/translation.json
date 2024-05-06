@@ -7,6 +7,14 @@
       "cancel": "Cancel",
       "confirm": "Confirm",
       "withdraw": "Withdraw"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "time": {
+      "month": "Month",
+      "months": "Months"
     }
   },
   "pages": {
@@ -23,6 +31,28 @@
         "mandatoryFields": "Please fill in all fields",
         "unexpectedError": "An unexpected error occurred, please try again later",
         "authenticationFailed": "Invalid Credentials"
+      }
+    },
+    "settings": {
+      "subscriptions": {
+        "title": "Subscriptions",
+        "subscriptionHistory": "Subscription History",
+        "form": {
+          "label": "Select a package to subscribe",
+          "phoneNumber": "M-Pesa Phone Number",
+          "extendSubscription": "Extend subscription",
+          "activateSubscription": "Activate subscription"
+        },
+        "subscriptionInfo": {
+          "title": "Subscription Details",
+          "status": "Status",
+          "validUntil": "Valid until"
+        },
+        "successMessage": "Your subscription has been successfully activated",
+        "errorMessage": "An error occurred while activating your subscription"
+      },
+      "profile": {
+        "title": "Account Info"
       }
     },
     "subscriptions": {
