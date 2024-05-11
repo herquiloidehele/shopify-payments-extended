@@ -102,7 +102,7 @@ const CreateSubscriptionModal: React.FC<ICreateSubscriptionModalProps> = ({ isOp
           noValidate
           autoComplete="off"
         >
-          {stores && stores.length && (
+          {stores && stores.length > 0 && (
             <FormControl fullWidth style={{ margin: "8px" }}>
               <InputLabel id="demo-simple-select-label">Loja</InputLabel>
               <Select labelId="role-labelId" id="demo-simple-select" name="shopId" value={subscription.shopId} label="Seleccione a Loja" onChange={handleFieldChange} disabled={saveLoading}>
@@ -113,7 +113,7 @@ const CreateSubscriptionModal: React.FC<ICreateSubscriptionModalProps> = ({ isOp
             </FormControl>
           )}
 
-          {packages && packages.length && (
+          {packages && packages.length > 0 && (
             <FormControl fullWidth style={{ margin: "8px" }}>
               <InputLabel id="demo-simple-select-label">Tipo de Pacote</InputLabel>
               <Select labelId="role-labelId" id="demo-simple-select" name="packageId" value={subscription.packageId} label="Selecione o Pacote" onChange={handleFieldChange} disabled={saveLoading}>
