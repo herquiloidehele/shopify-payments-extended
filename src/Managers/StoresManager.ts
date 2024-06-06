@@ -82,6 +82,7 @@ export default abstract class StoresManager {
   public static convertDataToStore(storesResponse: IShopResponse): IShop {
     return {
       id: storesResponse._id,
+      shopName: storesResponse.shopName,
       accessToken: storesResponse.accessToken,
       status: storesResponse.active,
       shopReference: storesResponse.shop,

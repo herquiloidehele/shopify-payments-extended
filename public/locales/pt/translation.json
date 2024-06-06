@@ -165,6 +165,7 @@
         "remove": "Remover"
       },
       "table": {
+        "shopName": "Nome da Loja",
         "name": "Dominio da loja",
         "status": "Estado",
         "accessToken": "Access Token",

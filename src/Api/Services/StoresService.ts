@@ -33,6 +33,7 @@ export default abstract class StoresService {
     return new Promise(async (resolve, reject) => {
       try {
         const requestData: INewShopRequest = {
+          shopName: shopData.shopName,
           shop: shopData.shopReference,
           active: true,
           accessToken: shopData.accessToken,
@@ -61,6 +62,7 @@ export default abstract class StoresService {
 
     try {
       const requestData: IEditShopRequest = {
+        shopName: storeData.shopName,
         shop: storeData.shopReference,
         active: storeData.status,
         accessToken: storeData.accessToken,

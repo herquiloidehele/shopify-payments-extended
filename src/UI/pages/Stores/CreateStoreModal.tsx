@@ -61,6 +61,7 @@ const CreateStoreModal: React.FC<ICreateUserModalProps> = ({ isOpen, onClose }) 
     setStore({
       id: "",
       status: true,
+      shopName: "",
       shopReference: "",
       accessToken: "",
       withdrawPhoneNumber: "",
@@ -108,6 +109,7 @@ const CreateStoreModal: React.FC<ICreateUserModalProps> = ({ isOpen, onClose }) 
           noValidate
           autoComplete="off"
         >
+          <TextField fullWidth required label="Nome da Loja" name="shopName" value={store.shopName} onChange={handleFieldChange} disabled={saveLoading} />
           <TextField fullWidth required label="Dominio da Loja Shopify" name="shopReference" value={store.shopReference} onChange={handleFieldChange} disabled={saveLoading} />
           <TextField fullWidth required label="Access Token" name="accessToken" value={store.accessToken} onChange={handleFieldChange} disabled={saveLoading} />
 
