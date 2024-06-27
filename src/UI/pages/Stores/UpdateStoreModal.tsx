@@ -76,6 +76,7 @@ const UpdateStoreModal: React.FC<IUpdateUserModalProps> = ({ storeData, isOpen, 
   const initUserData = () => {
     setStore({
       id: "",
+      shopName: "",
       status: true,
       shopReference: "",
       accessToken: "",
@@ -114,6 +115,7 @@ const UpdateStoreModal: React.FC<IUpdateUserModalProps> = ({ storeData, isOpen, 
           noValidate
           autoComplete="off"
         >
+          <TextField fullWidth required label="Nome da Loja" name="shopName" value={store.shopName} onChange={handleFieldChange} disabled={saveLoading} />
           <TextField fullWidth required label="Dominio da Loja Shopify" name="shopReference" value={store.shopReference} onChange={handleFieldChange} disabled={saveLoading} />
           <TextField fullWidth required label="Access Token" name="accessToken" value={store.accessToken} onChange={handleFieldChange} disabled={saveLoading} />
 

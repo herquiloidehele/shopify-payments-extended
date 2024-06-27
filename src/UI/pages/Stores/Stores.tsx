@@ -62,7 +62,14 @@ const Stores: React.FC = () => {
     setIsUpdateModalOpen(false);
   };
 
-  const storesTableRows = [t("pages.stores.table.name"), t("pages.stores.table.accessToken"), t("pages.stores.table.status"), t("pages.stores.table.hasAPI"), t("pages.stores.table.actions")];
+  const storesTableRows = [
+    t("pages.stores.table.shopName"),
+    t("pages.stores.table.name"),
+    t("pages.stores.table.accessToken"),
+    t("pages.stores.table.status"),
+    t("pages.stores.table.hasAPI"),
+    t("pages.stores.table.actions"),
+  ];
 
   const getStatusBadge = (status: boolean) => {
     if (status) {
@@ -122,7 +129,7 @@ const Stores: React.FC = () => {
     }
 
     return stores.map((store: IShop) => {
-      return [store.shopReference, store.accessToken, getStatusBadge(store.status), getMpesaAPIBadge(store.hasOwnPaymentSettings), getActionButtons(store)];
+      return [store.shopName, store.shopReference, store.accessToken, getStatusBadge(store.status), getMpesaAPIBadge(store.hasOwnPaymentSettings), getActionButtons(store)];
     });
   };
 

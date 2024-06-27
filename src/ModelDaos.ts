@@ -10,6 +10,7 @@ export interface IPackageResponse {
 
 export interface IShopResponse {
   _id?: string;
+  shopName: string;
   shop: string;
   active: boolean;
   accessToken: string;
@@ -26,6 +27,7 @@ export interface ISubscriptionResponse {
 }
 
 export type INewShopRequest = {
+  shopName: string;
   shop: string;
   active: boolean;
   accessToken: string;
@@ -34,6 +36,7 @@ export type INewShopRequest = {
 };
 
 export interface IEditShopRequest {
+  shopName: string;
   shop: string;
   active: boolean;
   accessToken: string;

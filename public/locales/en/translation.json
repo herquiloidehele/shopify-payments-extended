@@ -164,6 +164,7 @@
             "remove": "Remove"
         },
       "table": {
+        "shopName": "Store Name",
         "name": "Store Domain",
         "status": "Status",
         "accessToken": "Access Token",
