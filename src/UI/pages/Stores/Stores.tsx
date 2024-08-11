@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 
 import StoresManager from "../../../Managers/StoresManager";
 import { IShop } from "../../../models";
+import { getLinkWithProtocol } from "../../../Utils/functions/Ui";
 import CustomCardComponent from "../../components/Generic/CustomCard/CustomCard";
 import ConfirmModal from "../../components/Modals/ConfirmModal";
 import TableWrapper from "../../components/Tables/TableWrapper";
@@ -129,7 +130,16 @@ const Stores: React.FC = () => {
     }
 
     return stores.map((store: IShop) => {
-      return [store.shopName, store.shopReference, store.accessToken, getStatusBadge(store.status), getMpesaAPIBadge(store.hasOwnPaymentSettings), getActionButtons(store)];
+      return [
+        <a href={getLinkWithProtocol(store.shopReference!)} target="_blank" rel="noreferrer" style={{ color: "#00D98A" }}>
+          {store.shopName || "Sem nome"}
+        </a>,
+        store.shopReference,
+        store.accessToken,
+        getStatusBadge(store.status),
+        getMpesaAPIBadge(store.hasOwnPaymentSettings),
+        getActionButtons(store),
+      ];
     });
   };
 

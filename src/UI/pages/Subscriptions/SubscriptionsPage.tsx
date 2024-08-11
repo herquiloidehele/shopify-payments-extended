@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import SubscriptionManager from "../../../Managers/SubscriptionManager";
 import { ISubscription } from "../../../models";
 import { Constants } from "../../../Utils/constants/Constants";
-import { getPackageDuration, getPackageName } from "../../../Utils/functions/Ui";
+import { getLinkWithProtocol, getPackageDuration, getPackageName } from "../../../Utils/functions/Ui";
 import CustomCardComponent from "../../components/Generic/CustomCard/CustomCard";
 import ConfirmModal from "../../components/Modals/ConfirmModal";
 import TableWrapper from "../../components/Tables/TableWrapper";
@@ -78,7 +78,9 @@ function SubscriptionsPage() {
 
     return subscriptions.map((subscription: ISubscription) => {
       return [
-        subscription.shop.shopReference,
+        <a href={getLinkWithProtocol(subscription.shop.shopReference!)} target="_blank" rel="noreferrer" style={{ color: "#00D98A" }}>
+          {subscription.shop.shopName || "Sem nome"}
+        </a>,
         getPackageName(subscription.package),
         getPackageDuration(t, subscription.package.monthsDuration),
         subscription.created_at.format(Constants.DATE_FORMATS.DATE),

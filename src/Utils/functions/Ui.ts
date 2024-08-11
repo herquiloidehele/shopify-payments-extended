@@ -38,3 +38,7 @@ export const getPackageName = (packageItem: Partial<IPackage>) => {
 
   return `${packageItem.name} - ${formatCurrency(packageItem.price)}`;
 };
+
+export function getLinkWithProtocol(url: string) {
+  return `https://${url}`;
+}
